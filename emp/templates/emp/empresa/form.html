@@ -1,0 +1,164 @@
+{% extends 'app/base.html' %}
+
+{% block content_header %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0"><i class="far fa-building nav-icon"></i> Empresa</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{% url 'bases:home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'emp:empresa-inicio' %}">Empresa</a></li>
+                    <li class="breadcrumb-item active">Nueva Empresa</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+{% endblock %}
+
+{% block contenido %}
+    <div class="card card-outline card-primary">
+        <div class="card-header">
+            <h3 class="card-title">
+              <i class="fas fa-plus-square"></i>
+              Nueva Empresa
+            </h3>
+        </div>
+        <div class="card-body">
+            <form method="POST" class="from-inline">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">Datos Empresa</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-form-label-sm col-md-2">R.U.C. Empresa</label>
+                                    <div class="col-md-2">
+                                        <input type="text" id="id_ruc" name="ruc" maxlength="11" 
+                                                class="form-control form-control-sm">
+                                    </div>
+                                    <label class="col-form-label col-form-label-sm col-md-2">Ras&oacute;n Social</label>
+                                    <div class="col-md-5">
+                                        <input type="text" id="id_razon_social" name="razon_social" maxlength="191" 
+                                                class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-form-label-sm col-md-2">Nombre Comercial</label>
+                                    <div class="col-md-9">
+                                        <input type="text" id="id_nombre_comercial" name="nombre_comercial" maxlength="191" 
+                                                class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-form-label-sm col-md-2">Direcci&oacute;n Principal</label>
+                                    <div class="col-md-9">
+                                        <input type="text" id="id_direccion_principal" name="direccion_principal" maxlength="191" 
+                                                class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-form-label-sm col-md-2">Ubigeo</label>
+                                    <div class="col-md-9">
+                                        <input type="text" id="id_ubigeo" name="ubigeo" maxlength="191" 
+                                                class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-form-label-sm col-md-2">P&aacute;gina Web</label>
+                                    <div class="col-md-9">
+                                        <input type="text" id="id_pagina_web" name="pagina_web" maxlength="191" 
+                                                class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card  border border-maroon">
+                            <div class="card-header bg-olive    ">
+                                <h3 class="card-title">Datos Facturaci&oacute;n</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-form-label-sm col-md-2">Usuario SOL</label>
+                                    <div class="col-md-4">
+                                        <input type="text" id="id_usuario_sol" name="usuario_sol" maxlength="50" 
+                                                class="form-control form-control-sm">
+                                    </div>
+                                    <label class="col-form-label col-form-label-sm col-md-2">Clave SOL</label>
+                                    <div class="col-md-3">
+                                        <input type="text" id="id_clave_sol" name="clave_sol" maxlength="50" 
+                                                class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-form-label-sm col-md-2">Certificado Pfx</label>
+                                    <div class="col-md-4">
+                                        <input type="file" id="id_usuario_sol" name="usuario_sol" maxlength="50" 
+                                                class="form-control form-control-sm">
+                                    </div>
+                                    <label class="col-form-label col-form-label-sm col-md-2">Fecha Caduca Cert.</label>
+                                    <div class="col-md-3">
+                                        <input type="date" id="id_fecha_caduca_certificado" name="fecha_caduca_certificado" 
+                                            class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-form-label-sm col-md-2">Certificado Zip</label>
+                                    <div class="col-md-4">
+                                        <input type="file" id="id_certificado_zip" name="certificado_zip" maxlength="50" 
+                                                class="form-control form-control-sm">
+                                    </div>
+                                    <label class="col-form-label col-form-label-sm col-md-2">Clave Certificado</label>
+                                    <div class="col-md-3">
+                                        <input type="password" id="id_clave_certificado" name="clave_certificado" 
+                                            class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-form-label-sm col-md-2">Texto Encabezado</label>
+                                    <div class="col-md-9">
+                                        <input type="text" id="id_encabezado" name="encabezado" maxlength="191" 
+                                                class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-form-label-sm col-md-2">Logo Empresa</label>
+                                    <div class="col-md-4">
+                                        <input type="file" id="id_logo" name="logo" maxlength="50" 
+                                                class="form-control form-control-sm">
+                                    </div>
+                                    <label class="col-form-label col-form-label-sm col-md-2">Imagen Pie P&aacute;gina</label>
+                                    <div class="col-md-3">
+                                        <input type="file" id="id_imagen_pie_pagina" name="imagen_pie_pagina" 
+                                            class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                    &nbsp;&nbsp;&nbsp;
+                    <a href="{% url 'emp:empresa-inicio' %}" class="btn btn-danger">
+                        <i class="fas fa-times"></i> Cancelar
+                    </a>
+                </div>
+                {% comment %} {{ form.as_p }} {% endcomment %}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock scripts %}
