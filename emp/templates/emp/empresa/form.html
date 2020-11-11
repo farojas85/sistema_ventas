@@ -41,40 +41,40 @@
                                     <label class="col-form-label col-form-label-sm col-md-2">R.U.C. Empresa</label>
                                     <div class="col-md-2">
                                         <input type="text" id="id_ruc" name="ruc" maxlength="11" 
-                                                class="form-control form-control-sm">
+                                                class="form-control form-control-sm" placeholder="R.U.C. Empresa">
                                     </div>
                                     <label class="col-form-label col-form-label-sm col-md-2">Ras&oacute;n Social</label>
                                     <div class="col-md-5">
                                         <input type="text" id="id_razon_social" name="razon_social" maxlength="191" 
-                                                class="form-control form-control-sm">
+                                                class="form-control form-control-sm" placeholder="Ingrese Razón Social">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label col-form-label-sm col-md-2">Nombre Comercial</label>
                                     <div class="col-md-9">
                                         <input type="text" id="id_nombre_comercial" name="nombre_comercial" maxlength="191" 
-                                                class="form-control form-control-sm">
+                                                class="form-control form-control-sm" placeholder="Nombre Comercial de la Empresa">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label col-form-label-sm col-md-2">Direcci&oacute;n Principal</label>
                                     <div class="col-md-9">
                                         <input type="text" id="id_direccion_principal" name="direccion_principal" maxlength="191" 
-                                                class="form-control form-control-sm">
+                                                class="form-control form-control-sm" placeholder="Dirección Fiscal de la Empresa">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label col-form-label-sm col-md-2">Ubigeo</label>
                                     <div class="col-md-9">
                                         <input type="text" id="id_ubigeo" name="ubigeo" maxlength="191" 
-                                                class="form-control form-control-sm">
+                                                class="form-control form-control-sm" placeholder="Ubigeo Empresa">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label col-form-label-sm col-md-2">P&aacute;gina Web</label>
                                     <div class="col-md-9">
                                         <input type="text" id="id_pagina_web" name="pagina_web" maxlength="191" 
-                                                class="form-control form-control-sm">
+                                                class="form-control form-control-sm" placeholder="Página Web de la Empresa">
                                     </div>
                                 </div>
                             </div>
@@ -90,19 +90,24 @@
                                     <label class="col-form-label col-form-label-sm col-md-2">Usuario SOL</label>
                                     <div class="col-md-4">
                                         <input type="text" id="id_usuario_sol" name="usuario_sol" maxlength="50" 
-                                                class="form-control form-control-sm">
+                                                class="form-control form-control-sm" placeholder="Usuario SOL SUNAT">
                                     </div>
                                     <label class="col-form-label col-form-label-sm col-md-2">Clave SOL</label>
                                     <div class="col-md-3">
                                         <input type="text" id="id_clave_sol" name="clave_sol" maxlength="50" 
-                                                class="form-control form-control-sm">
+                                                class="form-control form-control-sm" placeholder="Clave SOL SUNAT">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label col-form-label-sm col-md-2">Certificado Pfx</label>
-                                    <div class="col-md-4">
-                                        <input type="file" id="id_usuario_sol" name="usuario_sol" maxlength="50" 
-                                                class="form-control form-control-sm">
+                                    <div class="col-md-5">
+                                        <div class="input-group input-group-sm">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input"
+                                                    id="id_certificado_pfx" name="certificado_pfx">
+                                                <label class="custom-file-label" for="exampleInputFile">Seleccionar Archivo</label>
+                                            </div>
+                                        </div>
                                     </div>
                                     <label class="col-form-label col-form-label-sm col-md-2">Fecha Caduca Cert.</label>
                                     <div class="col-md-3">
@@ -112,33 +117,50 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label col-form-label-sm col-md-2">Certificado Zip</label>
-                                    <div class="col-md-4">
-                                        <input type="file" id="id_certificado_zip" name="certificado_zip" maxlength="50" 
-                                                class="form-control form-control-sm">
+                                    <div class="col-md-5">
+                                        <div class="input-group input-group-sm">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input"
+                                                    id="id_certificado_zip" name="certificado_zip">
+                                                <label class="custom-file-label" for="exampleInputFile">Seleccionar Archivo</label>
+                                            </div>
+                                        </div>
                                     </div>
                                     <label class="col-form-label col-form-label-sm col-md-2">Clave Certificado</label>
                                     <div class="col-md-3">
                                         <input type="password" id="id_clave_certificado" name="clave_certificado" 
-                                            class="form-control form-control-sm">
+                                            class="form-control form-control-sm" placeholder="Clave Certificado">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label col-form-label-sm col-md-2">Texto Encabezado</label>
                                     <div class="col-md-9">
                                         <input type="text" id="id_encabezado" name="encabezado" maxlength="191" 
-                                                class="form-control form-control-sm">
+                                                class="form-control form-control-sm" placeholder="Texto Encabezado de Documentos">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label col-form-label-sm col-md-2">Logo Empresa</label>
-                                    <div class="col-md-4">
-                                        <input type="file" id="id_logo" name="logo" maxlength="50" 
-                                                class="form-control form-control-sm">
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input"
+                                                    id="id_logo" name="logo">
+                                                <label class="custom-file-label" for="exampleInputFile">Seleccionar Archivo</label>
+                                            </div>
+                                        </div>
                                     </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-form-label col-form-label-sm col-md-2">Imagen Pie P&aacute;gina</label>
-                                    <div class="col-md-3">
-                                        <input type="file" id="id_imagen_pie_pagina" name="imagen_pie_pagina" 
-                                            class="form-control form-control-sm">
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input"
+                                                    id="id_imagen_pie_pagina" name="imagen_pie_pagina">
+                                                <label class="custom-file-label" for="exampleInputFile">Seleccionar Archivo</label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
