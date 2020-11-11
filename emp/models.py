@@ -54,7 +54,78 @@ class Empresa(ClaseModelo):
     class Meta:
         verbose_name_plural= 'Empresas' 
 
-# class Sucursal(ClaseModelo):
-#     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
-#     nombre = models.CharField(max_length=191)
-#     direccion = models.CharField(max_length=191)
+class Sucursal(ClaseModelo):
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE,blank=True,null=True)
+    nombre = models.CharField(max_length=191)
+    direccion = models.CharField(max_length=191)
+    referencia = models.CharField(max_length=191, blank=True, null=True)
+    ubigeo = models.ForeignKey(Distrito,on_delete=models.CASCADE,blank=True, null=True)
+    observacion = models.CharField(max_length=191, blank=True, null=True)
+
+    def __str__(self):
+        return '{}'.format(self.nombre)
+
+    def save(self):
+        self.nombre =self.nombre.upper()
+        super(Sucursal,self).save()
+
+    class Meta:
+         verbose_name_plural= 'Sucursales'
+
+class TipoAlmacen(ClaseModelo):
+    nombre = models.CharField(max_length=191,blank=True, null=True)
+
+    def __str__(self):
+        return '{}'.format(self.nombre)
+
+    def save(self):
+        self.nombre =self.nombre.upper()
+        super(TipoAlmacen,self).save()
+
+    class Meta:
+        verbose_name_plural= 'TipoAlmacenes'
+
+class Almacen(ClaseModelo):
+    sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE,blank=True,null=True)
+    nombre = models.CharField(max_length=191)
+    direccion = models.CharField(max_length=191)
+    referencia = models.CharField(max_length=191, blank=True, null=True)
+    ubigeo = models.ForeignKey(Distrito,on_delete=models.CASCADE,blank=True, null=True)
+    observacion = models.CharField(max_length=191, blank=True, null=True)
+    tipo_almacen =models.ForeignKey(TipoAlmacen, on_delete=models.CASCADE,blank=True,null=True)
+    ubigeo = models.ForeignKey(Distrito,on_delete=models.CASCADE,blank=True, null=True)
+    area = models.CharField(max_length=191, blank=True, null=True)
+
+    def __str__(self):
+        return '{}'.format(self.nombre)
+
+    def save(self):
+        self.nombre =self.nombre.upper()
+        super(Almacen,self).save()
+
+    class Meta:
+        verbose_name_plural= 'Almacenes'
+
+class TipoPuntoVenta(ClaseModelo):
+    nombre = models.CharField(max_length=191, blank=True, null=True)
+
+    def __str__(self):
+        return '{}'.format(self.nombre)
+
+    def save(self):
+        self.nombre =self.nombre.upper()
+        super(TipoPuntoVenta,self).save()
+
+    class Meta:
+        verbose_name_plural= 'TipoPuntoVentas'
+
+class PuntoVenta(ClaseModelo):
+    tipo_punto_venta = models.ForeignKey(TipoPuntoVenta, on_delete=models.CASCADE,blank=True,null=True)
+    almacen = models.ForeignKey(Almacen, on_delete=models.CASCADE,blank=True,null=True)
+    nombre_equipo = models.CharField(max_length=191)
+ 
+    def __str__(self):
+        return '{}'.format(self.nombre_equipo)
+
+    class Meta:
+        verbose_name_plural= 'PuntoVentas'
