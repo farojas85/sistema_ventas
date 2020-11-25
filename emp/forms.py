@@ -1,5 +1,5 @@
 from django import forms
-from .models import Empresa
+from .models import Empresa,Sucursal,Almacen,PuntoVenta
 
 class EmpresaForm(forms.ModelForm):
     class Meta:
@@ -28,3 +28,36 @@ class EmpresaForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({
                 'class':'form-control'
             })
+
+class SucursalForm(forms.ModelForm):
+    class Meta:
+        model = Sucursal
+        fields=['empresa','nombre','direccion','referencia','ubigeo','observacion','estado']
+        wifget={
+            'empresa': forms.Select
+        }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args,**kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({
+                'class':'form-control'
+            })
+    
+class AlmacenForm(forms.ModelForm):
+    class Meta:
+        model = Almacen
+        fields = ['tipo_almacen','nombre','direccion','ubigeo','area','capacidad','unidad_medidad']
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args,**kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({
+                'class':'form-control'
+            })
+        
+
+class PuntoVentaForm(forms.ModelForm):
+    class Meta:
+        model = PuntoVenta
+        fields = ['nombre_equipo']

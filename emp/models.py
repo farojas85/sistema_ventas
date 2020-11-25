@@ -13,7 +13,7 @@ class Departamento(models.Model):
 class Provincia(models.Model):
     codigo = models.CharField(max_length=4, help_text="Codigo Provincia")
     nombre = models.CharField(max_length=191, help_text="Descripción de Provincia")
-    departamento = models.ForeignKey(Departamento,on_delete=models.CASCADE)
+    departamento = models.ForeignKey(Departamento,on_delete=models.CASCADE,blank=True, null=True)
 
     class Meta:
         verbose_name_plural = 'Provincias'
@@ -21,12 +21,21 @@ class Provincia(models.Model):
 class Distrito(models.Model):
     codigo = models.CharField(max_length=6, help_text="Codigo Distrito")
     nombre = models.CharField(max_length=191, help_text="Descripción de Distrito")
-    provincia = models.ForeignKey(Provincia,on_delete=models.CASCADE)
+    provincia = models.ForeignKey(Provincia,on_delete=models.CASCADE,blank=True, null=True)
 
     class Meta:
-        verbose_name_plural = 'Distritos'   
+        verbose_name_plural = 'Distritos'
+
+class TipoEmpresa(models.Model):
+    codigo = models.CharField(max_length=2, help_text="Codigo Tipo Empresa")
+    nombre = models.CharField(max_length=191, help_text="Descripción de Tipo Empresa")
+    comentario = models.CharField(max_length=191, help_text="Comentario de Tipo Empresa",blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = 'TipoEmpresas'
 
 class Empresa(ClaseModelo):
+    tipo_empresa = models.ForeignKey(TipoEmpresa,on_delete=models.CASCADE,blank=True, null=True)
     ruc = models.CharField(max_length=11,help_text=" R.U.C. de Empresa",unique=True)
     razon_social = models.CharField(max_length=191,help_text="Razón Social Empresa")
     nombre_comercial = models.CharField(max_length=191, help_text="Nombre Comercial Empresa",blank=True, null=True)
@@ -85,16 +94,29 @@ class TipoAlmacen(ClaseModelo):
     class Meta:
         verbose_name_plural= 'TipoAlmacenes'
 
+class UnidadMedida(ClaseModelo):
+    id_sunat = models.CharField(max_length=10,blank=True, null=True)
+    nombre = models.CharField(max_length=191,blank=True, null=True)
+    impresion= models.CharField(max_length=191, blank=True, null=True)
+    def __str__(self):
+        return '{}'.format(self.nombre)
+
+    def save(self):
+        self.nombre =self.nombre.upper()
+        super(UnidadMedida,self).save()
+
+    class Meta:
+        verbose_name_plural= 'UnidadMedidas'
+
 class Almacen(ClaseModelo):
     sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE,blank=True,null=True)
     nombre = models.CharField(max_length=191)
     direccion = models.CharField(max_length=191)
-    referencia = models.CharField(max_length=191, blank=True, null=True)
-    ubigeo = models.ForeignKey(Distrito,on_delete=models.CASCADE,blank=True, null=True)
-    observacion = models.CharField(max_length=191, blank=True, null=True)
     tipo_almacen =models.ForeignKey(TipoAlmacen, on_delete=models.CASCADE,blank=True,null=True)
     ubigeo = models.ForeignKey(Distrito,on_delete=models.CASCADE,blank=True, null=True)
-    area = models.CharField(max_length=191, blank=True, null=True)
+    area = models.DecimalField(max_digits=18,decimal_places=2, blank=True, null=True)
+    capacidad = models.DecimalField(max_digits=18,decimal_places=2, blank=True, null=True)
+    unidad_medidad = models.ForeignKey(UnidadMedida, on_delete=models.CASCADE,blank=True,null=True)
 
     def __str__(self):
         return '{}'.format(self.nombre)
