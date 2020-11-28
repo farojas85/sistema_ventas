@@ -43,6 +43,13 @@ class EmpresaNew(LoginRequiredMixin,generic.CreateView):
     success_url = reverse_lazy('emp:empresa-inicio')
     login_url = 'bases:login'
 
+class EmpresaFiltro(generic.View):
+    def get(self, request):
+        empresa = list(Empresa.objects.filter(ruc__contains = request.GET.get('ruc')).values('id','ruc','razon_social'))
+        data = dict()
+        data['empresa'] = empresa
+        return JsonResponse(data)
+
 class SucursalView(LoginRequiredMixin,generic.ListView):
     paginate_by = 5
     model = Sucursal
@@ -56,6 +63,46 @@ class SucursalNew(LoginRequiredMixin,generic.CreateView):
     form_class= SucursalForm
     success_url = reverse_lazy('emp:sucursal-inicio')
     login_url = 'bases:login'
+
+class SucursalMostrar(generic.View):
+    def get(self, request):
+        sucursal = list(Sucursal.objects.filter(id = request.GET.get('id')).values())
+        empresa = list(Empresa.objects.filter(id = sucursal[0]['empresa_id']).values('id','ruc','razon_social'))
+        ubigeo = list(Distrito.objects.filter(id = sucursal[0]['ubigeo_id']).values('id','nombre','provincia_id'))
+        provincia = list(Provincia.objects.filter(id = ubigeo[0]['provincia_id']).values('id','nombre','departamento_id'))
+        departamento = list(Departamento.objects.filter(id = provincia[0]['departamento_id']).values('id','nombre'))
+        data = dict()
+        data['sucursal'] = sucursal
+        data['empresa'] = empresa
+        data['ubigeo'] = ubigeo
+        data['provincia'] = provincia
+        data['departamento'] = departamento
+        return JsonResponse(data)
+
+class SucursalActualizar(generic.View):
+    def post(self, request):
+        data = dict()
+        sucursal =  Sucursal.objects.get(id = request.POST['id'])
+        form = SucursalForm(instance=sucursal,data= request.POST)
+        if form.is_valid():
+            sucursal = form.save()
+            data['sucursal'] = model_to_dict(sucursal)
+            data['ok'] = 1
+        else:
+            data['error'] = 'Formulario No Válido'
+            data['ok'] = 0
+        return JsonResponse(data)
+
+class SucursalSuspender(generic.View):
+    def post(self,request):
+        data = dict()
+        ids = request.POST.get('id_sucursal',None)
+        suc =  Sucursal.objects.get(id = request.POST['id_sucursal'])
+        suc.estado = 0
+        suc.save()
+        data['sucursal'] = model_to_dict(suc)
+        data['ok'] = 1
+        return JsonResponse(data)
 
 class AlmacenView(LoginRequiredMixin,generic.ListView):
     paginate_by = 5

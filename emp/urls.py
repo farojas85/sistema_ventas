@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import DepartamentoList, ProvinciaList,DistritoList,EmpresaView,EmpresaNew,SucursalView,SucursalNew,AlmacenView,AlmacenNew,PuntoVentaView,PuntoVentaNew
+from .views import DepartamentoList, ProvinciaList,DistritoList,EmpresaView,EmpresaNew,EmpresaFiltro
+from .views import SucursalView,SucursalNew,SucursalMostrar,SucursalActualizar,SucursalSuspender
+from .views import AlmacenView,AlmacenNew,PuntoVentaView,PuntoVentaNew
 
 urlpatterns = [
     path('departamento/list', DepartamentoList.as_view(), name='departamento_list'),
@@ -7,9 +9,12 @@ urlpatterns = [
     path('distrito/list_by_provincia',DistritoList.as_view(), name="distrito_list"),
     path('empresa/',EmpresaView.as_view(),name='empresa-inicio'),
     path('empresa/new',EmpresaNew.as_view(),name='empresa-new'),
-    #path('empresa/departamento/lista')
+    path('empresa/filtro',EmpresaFiltro.as_view(),name='empresa_filtro'),
     path('sucursal/',SucursalView.as_view(),name='sucursal-inicio'),
     path('sucursal/new',SucursalNew.as_view(),name='sucursal-new'),
+    path('sucursal/mostrar',SucursalMostrar.as_view(),name='sucursal-mostrar'),
+    path('sucursal/actualizar',SucursalActualizar.as_view(),name='sucursal-actualizar'),
+    path('sucursal/eliminar',SucursalSuspender.as_view(),name='sucursal-eliminar'),
     path('almacen/',AlmacenView.as_view(),name='almacen-inicio'),
     path('almacen/new',AlmacenNew.as_view(),name='almacen-new'),
     path('puntoventa/',PuntoVentaView.as_view(),name='puntoventa-inicio'),

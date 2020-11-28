@@ -34,7 +34,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12 table-responsive">
-                        <table class="table table-sm table-bordered nowrap">
+                        <table class="table table-sm table-bordered nowrap" id="tabla-sucursal">
                             <thead class="bg-info">
                                 <tr>
                                     <th>#</th>
@@ -46,6 +46,44 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% if not sucursales %}
+                                    <tr>
+                                        <td class="text-danger text-center" colspan="6">--Datos No Registrados--</td>
+                                    </tr>
+                                {% else %}
+                                    {% for item in sucursales %}
+                                    <tr>
+                                        <td>{{ item.id }}</td>
+                                        <td>{{ item.empresa }}</td>
+                                        <td>{{ item.nombre }}</td>
+                                        <td>{{ item.direccion }}</td>
+                                        <td>
+                                            {% if item.estado == 1 %}
+                                            <span class="badge badge-success">Activo</span>
+                                            {% else %}
+                                            <span class="badge badge-danger">Inactivo</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <button class="btn bg-primary btn-xs btn-mostrar" data-id="{{ item.id }}">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-warning btn-xs btn-editar" data-id="{{ item.id }}">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            {% if item.estado == 1 %}
+                                            <button class="btn btn-danger btn-xs btn-eliminar" data-id="{{ item.id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                            {% else %}
+                                            <button class="btn bg-purple btn-xs btn-restaurar" title="Restauar Sucursal">
+                                                <i class="fas fa-trash-restore-alt"></i>
+                                            </button>
+                                            {% endif%}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                {% endif %}
                             </tbody>
                         </table>
                     </div>
@@ -54,4 +92,22 @@
         </div>
     </div>
 </div>
+<div class="modal" tabindex="-1" role="dialog" id='modal-sucursal'>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            {% include 'emp/sucursal/partial_form.html' %}
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id='modal-sucursal-eliminar'>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            {% include 'emp/sucursal/eliminar.html' %}
+        </div>
+    </div>
+</div>
 {% endblock contenido %}
+
+{% block scripts %}
+<script src="/static/base/js/sucursal.js"></script>
+{% endblock scripts %}

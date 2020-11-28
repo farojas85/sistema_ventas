@@ -1,0 +1,97 @@
+<form method="post" action="" class="" id="form-sucursal">
+  {% csrf_token %}
+  <div class="modal-header">
+    <h4 class="modal-title">Editar Sucursal</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <input type="hidden" id="id" name ="id" >
+    <div class="form-group row">
+      <label class="col-form-label col-form-label-sm col-md-2">Empresa</label>
+      <div class="col-md-2">
+          <input type="text" id="id_ruc" name="ruc" maxlength="11" 
+              class="form-control form-control-sm" placeholder="R.U.C. Empresa" >
+      </div>
+      <label class="col-form-label col-form-label-sm col-md-2">Ras&oacute;n Social</label>
+      <div class="col-md-6">
+          <input type="hidden" id="id_empresa" name ="empresa" > 
+          <input type="text" id="id_razon_social" name="razon_social" maxlength="191" 
+                  class="form-control form-control-sm" placeholder="Seleccione Razón Social">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-form-label-sm col-md-2">Nombre Sucursal</label>
+      <div class="col-md-9">
+          <input type="text" id="id_nombre" name="nombre" maxlength="191" 
+                  class="form-control form-control-sm" placeholder="Nombre de la Sucursal">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-form-label-sm col-md-2">Direcci&oacute;n</label>
+      <div class="col-md-9">
+          <input type="text" id="id_direccion" name="direccion" maxlength="191" 
+                  class="form-control form-control-sm" placeholder="Dirección Fiscal de la Empresa">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-form-label-sm col-md-2">Referencia</label>
+      <div class="col-md-9">
+          <input type="text" id="id_referencia" name="referencia" maxlength="191" 
+                  class="form-control form-control-sm" placeholder="Referencia Dirección">
+      </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-form-label col-form-label-sm col-md-2">Observaci&oacute;n</label>
+        <div class="col-md-9">
+            <input type="text" id="id_observacion" name="observacion" maxlength="191" 
+                    class="form-control form-control-sm" placeholder="Dirección Fiscal de la Empresa">
+        </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-form-label-sm col-md-2">Departamento</label>
+      <div class="col-md-3">
+        <select id="id_departamento" name="departamento" class="form-control form-control-sm"
+            placeholder="Seleccionar" onchange="listarProvincias()">
+            <option value="">-Seleccionar-</option>
+        </select>
+      </div>
+      <label class="col-form-label col-form-label-sm col-md-1">Provincia</label>
+      <div class="col-md-3">
+          <select id="id_provincia" name="provincia" class="form-control form-control-sm"
+              placeholder="Seleccionar" onchange="listarDistritos()">
+              <option value="">-Seleccionar-</option>
+          </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-form-label-sm col-md-2">Distrito</label>
+      <div class="col-md-3">
+          <select id="id_ubigeo" name="ubigeo" class="form-control form-control-sm"
+              placeholder="Seleccionar">
+              <option value="">-Seleccionar-</option>
+          </select>
+      </div>
+      {% comment %} <div class="col-md-7">
+          <input type="text" id="id_ubigeo" name="ubigeo" maxlength="191" 
+                  class="form-control form-control-sm" placeholder="Ubigeo Empresa">
+      </div> {% endcomment %}
+    </div>
+    <div class="form-group row">
+        <label for="id_estado" class="col-form-label col-form-label-sm col-md-2">Estado</label>
+        <div class="col-md-4 text-left">
+            <input type="checkbox" name="estado" id="id_estado" >
+        </div> 
+    </div>
+    <div class="form-group text-center">
+        
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success btn-guardar">
+        <i class="fas fa-save"></i> Guardar
+    </button>
+    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+  </div>
+</form>

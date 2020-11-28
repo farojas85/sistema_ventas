@@ -61,8 +61,8 @@ class Sucursal(ClaseModelo):
     nombre = models.CharField(max_length=191)
     direccion = models.CharField(max_length=191)
     referencia = models.CharField(max_length=191, blank=True, null=True)
-    ubigeo = models.ForeignKey(Distrito,on_delete=models.CASCADE,blank=True, null=True)
     observacion = models.CharField(max_length=191, blank=True, null=True)
+    ubigeo = models.ForeignKey(Distrito,on_delete=models.CASCADE,blank=True, null=True)
 
     def __str__(self):
         return '{}'.format(self.nombre)    

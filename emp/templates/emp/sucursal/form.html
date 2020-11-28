@@ -27,23 +27,99 @@
         </h3>
     </div>
     <div class="card-body">
-        <form method="POST" class="from-inline">
+        <form method="POST"  class="from-inline" id="form-sucursal" >
             {% csrf_token %}
-             {% comment %} <div class="form-group row">
+            <div class="form-group row">
                 <label class="col-form-label col-form-label-sm col-md-2">Empresa</label>
                 <div class="col-md-2">
-                        <input type="text" id="id_ruc" name="ruc" maxlength="11" 
-                                class="form-control form-control-sm" placeholder="R.U.C. Empresa">
-                    </div>
-                    <label class="col-form-label col-form-label-sm col-md-2">Ras&oacute;n Social</label>
-                    <div class="col-md-5">
-                        <input type="text" id="id_razon_social" name="razon_social" maxlength="191" 
-                                class="form-control form-control-sm" placeholder="Ingrese Razón Social">
-                    </div>
+                    <input type="text" id="id_ruc" name="ruc" maxlength="11" 
+                        class="form-control form-control-sm" placeholder="R.U.C. Empresa" >
                 </div>
-            </div> {% endcomment %}
-            {{ form.as_p }}
+                <label class="col-form-label col-form-label-sm col-md-2">Ras&oacute;n Social</label>
+                <div class="col-md-6">
+                    <input type="hidden" id="id_empresa" name ="empresa" > 
+                    <input type="text" id="id_razon_social" name="razon_social" maxlength="191" 
+                            class="form-control form-control-sm" placeholder="Seleccione Razón Social">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-form-label-sm col-md-2">Nombre</label>
+                <div class="col-md-9">
+                    <input type="text" id="id_nombre" name="nombre" maxlength="191" 
+                            class="form-control form-control-sm" placeholder="Nombre Sucursal">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-form-label-sm col-md-2">Direcci&oacute;n Principal</label>
+                <div class="col-md-9">
+                    <input type="text" id="id_direccion" name="direccion" maxlength="191" 
+                            class="form-control form-control-sm" placeholder="Dirección Fiscal de la Empresa">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-form-label-sm col-md-2">Referencia</label>
+                <div class="col-md-9">
+                    <input type="text" id="id_referencia" name="referencia" maxlength="191" 
+                            class="form-control form-control-sm" placeholder="Referencia Dirección">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-form-label-sm col-md-2">Observaci&oacute;n</label>
+                <div class="col-md-9">
+                    <input type="text" id="id_observacion" name="observacion" maxlength="191" 
+                            class="form-control form-control-sm" placeholder="Dirección Fiscal de la Empresa">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-form-label-sm col-md-2">Departamento</label>
+                <div class="col-md-3">
+                    <select id="id_departamento" name="departamento" class="form-control form-control-sm"
+                        placeholder="Seleccionar" onchange="listarProvincias()">
+                        <option value="">-Seleccionar-</option>
+                    </select>
+                </div>
+                    <label class="col-form-label col-form-label-sm col-md-1">Provincia</label>
+                <div class="col-md-3">
+                    <select id="id_provincia" name="provincia" class="form-control form-control-sm"
+                        placeholder="Seleccionar" onchange="listarDistritos()">
+                        <option value="">-Seleccionar-</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-form-label-sm col-md-2">Distrito</label>
+                <div class="col-md-3">
+                    <select id="id_ubigeo" name="ubigeo" class="form-control form-control-sm"
+                        placeholder="Seleccionar">
+                        <option value="">-Seleccionar-</option>
+                    </select>
+                </div>
+                {% comment %} <div class="col-md-7">
+                    <input type="text" id="id_ubigeo" name="ubigeo" maxlength="191" 
+                            class="form-control form-control-sm" placeholder="Ubigeo Empresa">
+                </div> {% endcomment %}
+            </div>
+            <div class="form-group row">
+                <label for="id_estado" class="col-form-label col-form-label-sm col-md-2">Estado</label>
+                <div class="col-md-4 text-left">
+                    <input type="checkbox" name="estado" id="id_estado" checked="">
+                </div> 
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+                &nbsp;&nbsp;&nbsp;
+                <a href="{% url 'emp:empresa-inicio' %}" class="btn btn-danger">
+                    <i class="fas fa-times"></i> Cancelar
+                </a>
+            </div>
+            {% comment %} {{ form.as_p }} {% endcomment %}
         </form>
     </div>
 </div>
 {% endblock contenido %}
+
+{% block scripts %}
+<script src="/static/base/js/sucursal.js"></script>
+{% endblock scripts %}
