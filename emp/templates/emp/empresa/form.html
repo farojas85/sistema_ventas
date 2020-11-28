@@ -64,11 +64,33 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-form-label col-form-label-sm col-md-2">Ubigeo</label>
-                                    <div class="col-md-9">
+                                    <label class="col-form-label col-form-label-sm col-md-2">Departamento</label>
+                                    <div class="col-md-3">
+                                        <select id="id_departamento" name="departamento" class="form-control form-control-sm"
+                                            placeholder="Seleccionar" onchange="listarProvincias()">
+                                            <option value="">-Seleccionar-</option>
+                                        </select>
+                                    </div>
+                                     <label class="col-form-label col-form-label-sm col-md-1">Provincia</label>
+                                    <div class="col-md-3">
+                                        <select id="id_provincia" name="provincia" class="form-control form-control-sm"
+                                            placeholder="Seleccionar" onchange="listarDistritos()">
+                                            <option value="">-Seleccionar-</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-form-label-sm col-md-2">Distrito</label>
+                                    <div class="col-md-3">
+                                        <select id="id_ubigeo" name="ubigeo" class="form-control form-control-sm"
+                                            placeholder="Seleccionar">
+                                            <option value="">-Seleccionar-</option>
+                                        </select>
+                                    </div>
+                                    {% comment %} <div class="col-md-7">
                                         <input type="text" id="id_ubigeo" name="ubigeo" maxlength="191" 
                                                 class="form-control form-control-sm" placeholder="Ubigeo Empresa">
-                                    </div>
+                                    </div> {% endcomment %}
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label col-form-label-sm col-md-2">P&aacute;gina Web</label>
@@ -183,4 +205,5 @@
 {% endblock %}
 
 {% block scripts %}
+<script src="/static/base/js/empresa.js"></script>
 {% endblock scripts %}

@@ -4,25 +4,19 @@ from bases.models import ClaseModelo
 # Create your models here.
 #Modelo Departamento
 class Departamento(models.Model):
-    codigo= models.CharField(max_length=2,help_text="Código Departamento")
     nombre= models.CharField(max_length=191,help_text='Descripción Departamento')
-
     class Meta:
         verbose_name_plural= 'Departamentos'
 
 class Provincia(models.Model):
-    codigo = models.CharField(max_length=4, help_text="Codigo Provincia")
     nombre = models.CharField(max_length=191, help_text="Descripción de Provincia")
     departamento = models.ForeignKey(Departamento,on_delete=models.CASCADE,blank=True, null=True)
-
     class Meta:
         verbose_name_plural = 'Provincias'
 
 class Distrito(models.Model):
-    codigo = models.CharField(max_length=6, help_text="Codigo Distrito")
     nombre = models.CharField(max_length=191, help_text="Descripción de Distrito")
     provincia = models.ForeignKey(Provincia,on_delete=models.CASCADE,blank=True, null=True)
-
     class Meta:
         verbose_name_plural = 'Distritos'
 
@@ -30,7 +24,6 @@ class TipoEmpresa(models.Model):
     codigo = models.CharField(max_length=2, help_text="Codigo Tipo Empresa")
     nombre = models.CharField(max_length=191, help_text="Descripción de Tipo Empresa")
     comentario = models.CharField(max_length=191, help_text="Comentario de Tipo Empresa",blank=True, null=True)
-
     class Meta:
         verbose_name_plural = 'TipoEmpresas'
 
@@ -55,13 +48,13 @@ class Empresa(ClaseModelo):
     def __str__(self):
         return '{}'.format(self.razon_social)
 
-    def save(self):
+    def save(self,*args, **kwargs):
         self.razon_social =self.razon_social.upper()
         self.nombre_comercial = self.nombre_comercial.upper()
-        super(Empresa,self).save()
+        super(Empresa,self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name_plural= 'Empresas' 
+        verbose_name_plural= 'Empresas'
 
 class Sucursal(ClaseModelo):
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE,blank=True,null=True)
@@ -72,25 +65,21 @@ class Sucursal(ClaseModelo):
     observacion = models.CharField(max_length=191, blank=True, null=True)
 
     def __str__(self):
-        return '{}'.format(self.nombre)
-
+        return '{}'.format(self.nombre)    
     def save(self):
         self.nombre =self.nombre.upper()
         super(Sucursal,self).save()
 
     class Meta:
-         verbose_name_plural= 'Sucursales'
+        verbose_name_plural= 'Sucursales'
 
 class TipoAlmacen(ClaseModelo):
     nombre = models.CharField(max_length=191,blank=True, null=True)
-
     def __str__(self):
         return '{}'.format(self.nombre)
-
     def save(self):
         self.nombre =self.nombre.upper()
         super(TipoAlmacen,self).save()
-
     class Meta:
         verbose_name_plural= 'TipoAlmacenes'
 

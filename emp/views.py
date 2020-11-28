@@ -2,11 +2,33 @@ from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-
-from .models import Empresa,Sucursal,Almacen,PuntoVenta
+from django.http import JsonResponse
+from django.forms.models import model_to_dict
+from .models import Departamento,Provincia,Distrito,Empresa,Sucursal,Almacen,PuntoVenta
 from .forms import EmpresaForm,SucursalForm,AlmacenForm,PuntoVentaForm
 
 # Create your views here.
+class DepartamentoList(generic.View):
+    def get(self, request):
+        departamentos = list(Departamento.objects.all().values())
+        data = dict()
+        data['departamentos'] = departamentos
+        return JsonResponse(data)
+
+class ProvinciaList(generic.View):
+    def get(self, request):
+        provincias = list(Provincia.objects.filter(departamento_id = request.GET.get('departamento')).values('id','nombre') )
+        data = dict()
+        data['provincias'] = provincias
+        return JsonResponse(data)
+
+class DistritoList(generic.View):
+    def get(self, request):
+        distritos = list(Distrito.objects.filter(provincia_id = request.GET.get('provincia')).values('id','nombre') )
+        data = dict()
+        data['distritos'] = distritos
+        return JsonResponse(data)
+
 class EmpresaView(LoginRequiredMixin,generic.ListView):
     paginate_by = 5
     model = Empresa
