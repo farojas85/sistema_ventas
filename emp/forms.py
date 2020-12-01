@@ -47,7 +47,8 @@ class SucursalForm(forms.ModelForm):
 class AlmacenForm(forms.ModelForm):
     class Meta:
         model = Almacen
-        fields = ['tipo_almacen','nombre','direccion','ubigeo','area','capacidad','unidad_medidad']
+        fields = ['tipo_almacen','nombre','sucursal','direccion','ubigeo','area',
+                    'capacidad','unidad_medidad','estado']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args,**kwargs)

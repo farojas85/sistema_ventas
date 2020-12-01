@@ -4,7 +4,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
+from django.db.models import Q
 from .models import Departamento,Provincia,Distrito,Empresa,Sucursal,Almacen,PuntoVenta
+from .models import TipoAlmacen,UnidadMedida
 from .forms import EmpresaForm,SucursalForm,AlmacenForm,PuntoVentaForm
 
 # Create your views here.
@@ -104,6 +106,34 @@ class SucursalSuspender(generic.View):
         data['ok'] = 1
         return JsonResponse(data)
 
+class TipoAlmacenLista(generic.View):
+    def get(self, request):
+        tipo_almacenes = list(TipoAlmacen.objects.all().values())
+        data = dict()
+        data['tipo_almacenes'] = tipo_almacenes
+        return JsonResponse(data)
+
+class UnidadMedidaLista(generic.View):
+    def get(self, request):
+        unidad_medidas = list(UnidadMedida.objects.all().values())
+        data = dict()
+        data['unidad_medidas'] = unidad_medidas
+        return JsonResponse(data)
+
+class SucursalBuscar(generic.View):
+    def get(self,request):
+        sucursales = list(Sucursal.objects.filter(nombre__contains = request.GET['buscar'].upper() ).values('id','nombre'))
+        data = dict()
+        data['sucursales'] = sucursales
+        return JsonResponse(data)
+
+class SucursalPorId(generic.View):
+    def get(self,request):
+        sucursal = list(Sucursal.objects.filter(id = request.GET['id']).values('id','nombre'))
+        data = dict()
+        data['sucursal'] = sucursal
+        return JsonResponse(data)
+
 class AlmacenView(LoginRequiredMixin,generic.ListView):
     paginate_by = 5
     model = Almacen
@@ -117,6 +147,37 @@ class AlmacenNew(LoginRequiredMixin,generic.CreateView):
     form_class= AlmacenForm
     success_url = reverse_lazy('emp:almacen-inicio')
     login_url = 'bases:login'
+
+class AlmacenMostrar(generic.View):
+    def get(self, request):
+        almacen = list(Almacen.objects.filter(id = request.GET.get('id')).values())
+        tipo_almacen = list(TipoAlmacen.objects.filter(id = almacen[0]['tipo_almacen_id']).values('id','nombre'))
+        sucursal = list(Sucursal.objects.filter(id = almacen[0]['sucursal_id']).values('id','nombre'))
+        ubigeo = list(Distrito.objects.filter(id = almacen[0]['ubigeo_id']).values('id','nombre','provincia_id'))
+        provincia = list(Provincia.objects.filter(id = ubigeo[0]['provincia_id']).values('id','nombre','departamento_id'))
+        departamento = list(Departamento.objects.filter(id = provincia[0]['departamento_id']).values('id','nombre'))
+        data = dict()
+        data['almacen'] = almacen
+        data['tipo_almacen'] = tipo_almacen
+        data['sucursal'] = sucursal
+        data['ubigeo'] = ubigeo
+        data['provincia'] = provincia
+        data['departamento'] = departamento
+        return JsonResponse(data)
+
+class AlmacenActualizar(generic.View):
+    def post(self, request):
+        data = dict()
+        almacen =  Almacen.objects.get(id = request.POST['id'])
+        form = AlmacenForm(instance=almacen,data= request.POST)
+        if form.is_valid():
+            almacen = form.save()
+            data['almacen'] = model_to_dict(almacen)
+            data['ok'] = 1
+        else:
+            data['error'] = 'Formulario No Válido'
+            data['ok'] = 0
+        return JsonResponse(data)
 
 class PuntoVentaView(LoginRequiredMixin,generic.ListView):
     paginate_by = 5

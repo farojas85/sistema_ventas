@@ -1,0 +1,101 @@
+<form method="post" action="" id="form-almacen">
+    {% csrf_token %}
+    <div class="modal-header bg-warning">
+        <h4 class="modal-title">Editar Almac&eacute;n</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <label class="col-form-label col-form-label-sm col-md-2">Tipo Almac&eacute;n</label>
+            <div class="col-md-4">
+                <select id="id_tipo_almacen" name="tipo_almacen" class="form-control form-control-sm">
+                    <option value="">-Seleccionar-</option>
+                </select>
+            </div>
+            <label class="col-form-label col-form-label-sm col-md-1">Nombre</label>
+            <div class="col-md-4">
+                <input type="text" id="id_nombre" name="nombre" maxlength="191" 
+                        class="form-control form-control-sm" placeholder="Nombre Almacén">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-form-label col-form-label-sm col-md-2">Sucursal Buscar</label>
+            <div class="col-md-9">
+                <input type="hidden" id="id_sucursal" name="sucursal">
+                <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-info btn-xs btn-buscar-sucursal">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Ingrese Sucursal"
+                        id="id_nombre_sucursal" name="nombre_sucursal">
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-form-label col-form-label-sm col-md-2">Direcci&oacute;n</label>
+            <div class="col-md-9">
+                <input type="text" id="id_direccion" name="direccion" maxlength="191" 
+                        class="form-control form-control-sm" placeholder="Dirección Fiscal de la Empresa">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-form-label col-form-label-sm col-md-2">&Aacute;rea</label>
+            <div class="col-md-4">
+                <input type="number" id="id_area" name="area"  
+                        class="form-control form-control-sm" placeholder="Área">
+            </div>
+            <label class="col-form-label col-form-label-sm col-md-2">Capacidad</label>
+            <div class="col-md-3">
+                <input type="number" id="id_capacidad" name="capacidad" maxlength="191" 
+                        class="form-control form-control-sm" placeholder="Capacidad Almacén">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-form-label col-form-label-sm col-md-2">Departamento</label>
+            <div class="col-md-3">
+                <select id="id_departamento" name="departamento" class="form-control form-control-sm"
+                    placeholder="Seleccionar" onchange="listarProvincias()">
+                    <option value="">-Seleccionar-</option>
+                </select>
+            </div>
+                <label class="col-form-label col-form-label-sm col-md-1">Provincia</label>
+            <div class="col-md-3">
+                <select id="id_provincia" name="provincia" class="form-control form-control-sm"
+                    placeholder="Seleccionar" onchange="listarDistritos()">
+                    <option value="">-Seleccionar-</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-form-label col-form-label-sm col-md-2">Distrito</label>
+            <div class="col-md-3">
+                <select id="id_ubigeo" name="ubigeo" class="form-control form-control-sm"
+                    placeholder="Seleccionar">
+                    <option value="">-Seleccionar-</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-form-label col-form-label-sm col-md-2">Unidad Medida</label>
+            <div class="col-md-4">
+                <select id="id_unidad_medida" name="unidad_medida"  class="form-control form-control-sm">
+                    <option value="">-Seleccionar-</option>
+                </select>
+            </div>
+            <label for="id_estado" class="col-form-label col-form-label-sm col-md-1">Estado</label>
+            <div class="col-md-4 text-left">
+                <input type="checkbox" name="estado" id="id_estado" checked="">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success btn-guardar">
+            <i class="fas fa-save"></i> Guardar
+        </button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+    </div>
+</form>

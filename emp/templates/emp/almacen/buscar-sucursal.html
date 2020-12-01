@@ -1,0 +1,38 @@
+<div class="modal" tabindex="-1" role="dialog" id='modal-buscar-sucursal'>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h4 class="modal-title">Buscar Sucursal</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-form-label col-form-label-sm col-md-2">Buscar</label>
+                    <div class="col-md-9">
+                        <input type="text" id="buscar_sucursal" name="buscar_sucursal"
+                            class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-sm table-bordered" id="tabla-buscar-sucursal">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th width="10%">#</th>
+                                    <th>Sucursal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+{% comment %} <script src="/static/base/js/almacen.js"></script> {% endcomment %}
