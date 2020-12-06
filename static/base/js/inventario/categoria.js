@@ -1,5 +1,5 @@
 $(function(){
-    $('#tabla-marca').DataTable({
+    $('#tabla-categoria').DataTable({
         "language":
             {
                 "sProcessing":     "Procesando...",
@@ -23,19 +23,23 @@ $(function(){
                 "oAria": {
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }
+                },
+                "sZeroRecords": "No hay Registros que mostrar",
+                "sEmptyTable": "No hay Datos Disponibles"
             },
         "pageLength": 10,
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "order": [[ 0, "desc" ]]
     })
 })
+
 $('.btn-nuevo').on('click' ,function(){
     $.ajax({    
-        url:  '/marca/crear',
+        url:  '/categoria/crear',
         type:  'get',
         dataType:'json',
         success: function  (datos) {
-            $('#modal-default-title').html('Nueva Marca')
+            $('#modal-default-title').html('Nueva Categoría')
             $('#modal-default').modal('show')
             $('#modal-default-body').html(datos.html_form)
             $('#id_estado').prop('checked', true);
@@ -45,12 +49,12 @@ $('.btn-nuevo').on('click' ,function(){
     });
 })
 
-$("#modal-default").on("submit", ".js-marca-create-form", function (event) {
+$("#modal-default").on("submit", ".js-create-form", function (event) {
     event.preventDefault()
     var crud = $('#estado_crud').val()
     var form = $(this);
-    var id = $("#marca_id").val()
-    
+    var id = $("#categoria_id").val()
+
     switch(crud){
         case 'crear' : insertar(form);break;
         case 'editar': actualizar(form,id);break;
@@ -60,7 +64,7 @@ $("#modal-default").on("submit", ".js-marca-create-form", function (event) {
 
 function insertar(form){
     $.ajax({
-        url: '/marca/crear',
+        url: '/categoria/crear',
         data: form.serialize(),
         type:  form.attr('method'),
         dataType: 'json',
@@ -69,13 +73,13 @@ function insertar(form){
                 $('#modal-default').modal('hide')
                 Swal.fire({
                     icon: 'success',
-                    title:'Marcas',
-                    text: 'Marca registrada Satisfactoriamente',
+                    title:'Categorías',
+                    text: 'Categoría registrada Satisfactoriamente',
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Aceptar'
                 }).then((resultado) => {
                     if(resultado.isConfirmed) {
-                        window.location="/marca"
+                        window.location="/categoria"
                     }
                 })
             }
@@ -85,9 +89,10 @@ function insertar(form){
         }
     });
 }
+
 function actualizar(form,id) {
     $.ajax({
-        url:  '/marca/'+id+'/actualizar',
+        url:  '/categoria/'+id+'/actualizar',
         data: form.serialize(),
         type:  form.attr('method'),
         dataType: 'json',
@@ -96,14 +101,14 @@ function actualizar(form,id) {
                 $('#modal-default').modal('hide')
                 Swal.fire({
                     icon: 'success',
-                    title:'Marcas',
-                    text: 'Marca Modificada Satisfactoriamente',
+                    title:'Categorías',
+                    text: 'Categoría Modificada Satisfactoriamente',
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Aceptar'
                 }).then((resultado) => {
                     if (resultado.isConfirmed) {
                         
-                        window.location="/marca"
+                        window.location="/categoria"
                     }
                 })
             }
@@ -113,18 +118,19 @@ function actualizar(form,id) {
         }
     });
 }
+
 $('.btn-editar').on('click' ,function(){
     let id= $(this).data('id')
     $.ajax({    
-        url:  '/marca/'+id+'/actualizar',
+        url:  '/categoria/'+id+'/actualizar',
         type:  'get',
         dataType:'json',
         success: function  (datos) {
-            $('#modal-default-title').html('Editar Marca')
+            $('#modal-default-title').html('Editar Categoría')
             $('#modal-default').modal('show')
             $('#modal-default-body').html(datos.html_form)
             $('#id_estado').prop('checked', true);
-            $('#marca_id').val(id)
+            $('#categoria_id').val(id)
             $('#estado_crud').val('editar')
             $('#modal-btn-guardar').css('display','')
         }
@@ -133,31 +139,31 @@ $('.btn-editar').on('click' ,function(){
 
 $('.btn-eliminar').on('click' ,function(){
     let id= $(this).data('id')
-    $('#id_marca').val(id)
-    $('#modal-marca-eliminar').modal('show')   
+    $('#id_categoria').val(id)
+    $('#modal-categoria-eliminar').modal('show')   
 })
 
 $('.btn-inhabilitar').on('click',function(){
-    form = $('#form-marca-eliminar')
+    form = $('#form-categoria-eliminar')
     $.ajax({    
-        url:  '/marca/inhabilitar',
+        url:  '/categoria/inhabilitar',
         type:  'POST',
         data:form.serialize(),
         dataType: 'json',
         success: function  (datos) {
             if(datos.ok == 1)
             {
-                $('#modal-marca-eliminar').modal('hide')
+                $('#modal-categoria-eliminar').modal('hide')
                 Swal.fire({
                     icon: 'success',
-                    title:'Marcas',
-                    text: 'Marca Inhabilitada Satisfactoriamente',
+                    title:'Categorías',
+                    text: 'Categoría Inhabilitada Satisfactoriamente',
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Aceptar'
                 }).then((resultado) => {
                     if (resultado.isConfirmed) {
                         
-                        window.location="/marca"
+                        window.location="/categoria"
                     }
                 })
             }
@@ -167,31 +173,30 @@ $('.btn-inhabilitar').on('click',function(){
 
 $('.btn-restaurar').on('click',function(){
     let id= $(this).data('id')
-    $('#id_marca_habilitar').val(id)
-    $('#modal-marca-restaurar').modal('show')   
-}) 
+    $('#id_categoria_habilitar').val(id)
+    $('#modal-categoria-restaurar').modal('show')   
+})
 
 $('.btn-habilitar').on('click',function(){
-    form = $('#form-marca-habilitar')
+    form = $('#form-categoria-habilitar')
     $.ajax({    
-        url:  '/marca/habilitar',
+        url:  '/categoria/habilitar',
         type:  'POST',
         data:form.serialize(),
         dataType: 'json',
         success: function  (datos) {
             if(datos.ok == 1)
             {
-                $('#modal-marca-restaurar').modal('hide') 
+                $('#modal-categoria-restaurar').modal('hide') 
                 Swal.fire({
                     icon: 'success',
-                    title:'Marcas',
-                    text: 'Marca Habilitada Satisfactoriamente',
+                    title:'Categorías',
+                    text: 'Categoría Habilitada Satisfactoriamente',
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Aceptar'
                 }).then((resultado) => {
                     if (resultado.isConfirmed) {
-                        
-                        window.location="/marca"
+                        window.location="/categoria"
                     }
                 })
             }
@@ -199,40 +204,40 @@ $('.btn-habilitar').on('click',function(){
     });
 })
 
-$('.btn-eliminar-marca').on('click' ,function(){
-    form = $('#form-marca-eliminar')
+$('.btn-eliminar-categoria').on('click' ,function(){
+    form = $('#form-categoria-eliminar')
     $.ajax({    
-        url:  '/marca/eliminar',
+        url:  '/categoria/eliminar',
         type:  'POST',
         data:form.serialize(),
         dataType: 'json',
         success: function(datos) {
-            $('#modal-marca-eliminar').modal('hide')
+            $('#modal-categoria-eliminar').modal('hide')
             if(datos.ok == 1)
             {
                 Swal.fire({
                     icon: 'success',
-                    title:'Marcas',
+                    title:'Categorías',
                     text: datos.mensaje,
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Aceptar'
                 }).then((resultado) => {
                     if (resultado.isConfirmed)
                     {                        
-                        window.location="/marca"
+                        window.location="/categoria"
                     }
                 })
             } else {
                 Swal.fire({
                     icon: 'warning',
-                    title:'Marcas',
+                    title:'Categorías',
                     text: datos.mensaje,
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Aceptar'
                 }).then((resultado) => {
                     if (resultado.isConfirmed) 
                     {                        
-                        window.location="/marca"
+                        window.location="/categoria"
                     }
                 })
             }

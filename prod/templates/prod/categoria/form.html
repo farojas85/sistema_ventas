@@ -1,0 +1,38 @@
+{% load widget_tweaks %}
+
+<form method="POST" id="form-categoria" class="js-create-form">
+    {% csrf_token %}
+    {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+    {% endfor%}
+    <div class="form-group row">
+        <label class="col-form-label col-form-label-sm col-md-3" 
+            for"{{ form.nombre.id_for_label }}">{{ form.nombre.label}}</label>
+        <div class="col-md-9">
+            <input type="text"  id="{{ form.nombre.id_for_label }}" name="{{form.nombre.name }}"
+                class="form-control form-control-sm {% if form.nombre.errors %}is-invalid{% endif %}" 
+                value = "{% if form.nombre.value %}{{form.nombre.value}}{% endif %}">
+            {% for error in form.nombre.errors %}
+                <small class="text-danger font-weight-bold">{{ error }}</small>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-form-label col-form-label-sm col-md-3"
+            for"{{ form.estado.id_for_label }}">{{ form.estado.label }}</label>
+        <div class="col-md-9">
+            <input type="checkbox" id="{{ form.estado.id_for_label }}" name="{{form.estado.name }}" 
+                {% if form.estado.value == 1 %}checked {% endif%}>
+        </div>
+    </div>
+    <input type="hidden"  id="estado_crud" name="estado_crud">
+    <input type="hidden" id="categoria_id" name="categoria_id">
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" id="modal-btn-guardar">
+            <i class="fas fa-save"></i> Guardar
+        </button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+            <i class="fas fa-times"></i> Cerrar
+        </button>
+    </div>
+</form>
