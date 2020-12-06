@@ -1,0 +1,84 @@
+{% extends 'app/base.html' %}
+
+{% block content_header %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0"><i class="fas fa-box-open nav-icon"></i> Producto</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{% url 'bases:home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'prod:producto-inicio' %}">Producto</a></li>
+                    <li class="breadcrumb-item active">Nuevo Producto</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+{% endblock %}
+
+{% block contenido %}
+<div class="card card-outline card-primary">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fas fa-plus-square"></i>
+            Nuevo Producto
+        </h3>
+    </div>
+    <div class="card-body">
+        <form method="POST" class="from-inline" id="form-producto">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor%}
+            <div class="form-group row">
+                <label class="col-form-label col-form-label-sm col-md-1" 
+                    for"{{ form.empresa.id_for_label }}">{{ form.empresa.label}}</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-info btn-sm btn-empresa-buscar">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <select id="{{ form.empresa.id_for_label }}" name="{{form.empresa.name }}"
+                            class="form-control form-control-sm {% if form.empresa.errors %}is-invalid{% endif %}" >
+                            <option value="" selected>-Seleccionar-</option>
+                        </select>                        
+                    </div>
+                    {% comment %} <input type="text"  id="{{ form.empresa.id_for_label }}" name="{{form.empresa.name }}"
+                        class="form-control form-control-sm {% if form.empresa.errors %}is-invalid{% endif %}" 
+                        value = "{% if form.empresa.value %}{{form.empresa.value}}{% endif %}"> {% endcomment %}
+                    {% for error in form.empresa.errors %}
+                        <small class="text-danger font-weight-bold">{{ error }}</small>
+                    {% endfor %}
+                </div>
+                <label class="col-form-label col-form-label-sm col-md-1" 
+                    for"{{ form.categoria.id_for_label }}">{{ form.categoria.label}}</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-info btn-sm btn-categoria-buscar">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <select id="{{ form.categoria.id_for_label }}" name="{{form.categoria.name }}"
+                            class="form-control form-control-sm {% if form.categoria.errors %}is-invalid{% endif %}" >
+                            <option value="" selected>-Seleccionar-</option>
+                        </select>                        
+                    </div>
+                    {% for error in form.categoria.errors %}
+                        <small class="text-danger font-weight-bold">{{ error }}</small>
+                    {% endfor %}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock contenido %}
+
+{% block scripts %}
+<script src="/static/base/js/inventario/producto.js"></script>
+{% endblock scripts %}

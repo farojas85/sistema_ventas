@@ -6,8 +6,9 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.forms.models import model_to_dict
 from django.db.models import Q
+from emp.models import Empresa
 from .models import Marca,TipoProducto,Producto,Categoria
-from .forms import MarcaForm,CategoriaForm
+from .forms import MarcaForm,CategoriaForm,ProductoForm
 
 class MarcaView(LoginRequiredMixin,generic.ListView):
     model = Marca
@@ -145,15 +146,30 @@ def categoria_eliminar(request):
     return JsonResponse(data)
 
 class TipoProductoView(LoginRequiredMixin,generic.ListView):
-    paginate_by = 5
     model = TipoProducto
     context_object_name = 'tipoproductos'
     template_name = 'prod/tipoproducto/inicio.html'
     login_url= 'bases:login'
 
 class ProductoView(LoginRequiredMixin,generic.ListView):
-    paginate_by = 5
     model = Producto
     context_object_name ='productos'
     template_name = 'prod/producto/inicio.html'
+    login_url = 'bases:login'
+
+class EmpresaList(generic.View):
+    def get(self, request):
+        data = dict()
+        data['empresas'] = list(Empresa.objects.all().values('id','razon_social'))
+        return JsonResponse(data)
+
+class CategoriaLista(generic.View):
+    def get(self,request):
+        data = dict()
+
+class ProductoCreate(LoginRequiredMixin,generic.CreateView):
+    model = Producto
+    template_name = 'prod/producto/form.html'
+    form_class= ProductoForm
+    success_url = reverse_lazy('prod:producto-inicio')
     login_url = 'bases:login'

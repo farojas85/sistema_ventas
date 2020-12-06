@@ -1,7 +1,9 @@
 from django.urls import path
 from .views import MarcaView,marca_create,marca_update,marca_inhabilitar,marca_habilitar,marca_eliminar
 from .views import CategoriaView,categoria_create,categoria_update,categoria_inhabilitar,categoria_habilitar,categoria_eliminar
-from .views import TipoProductoView,ProductoView
+from .views import TipoProductoView
+from .views import ProductoView,ProductoCreate
+from .views import EmpresaList
 
 urlpatterns = [
     path('marca/',MarcaView.as_view(),name="marca-inicio"),
@@ -17,5 +19,7 @@ urlpatterns = [
     path('categoria/habilitar',categoria_habilitar,name="categoria-habilitar"),
     path('categoria/eliminar',categoria_eliminar,name="categoria-eliminar"),
     path('tipoproducto/',TipoProductoView.as_view(),name="tipoproducto-inicio"),
-    path('producto/',ProductoView.as_view(),name='producto-inicio')
+    path('empresa/lista',EmpresaList.as_view(),name="empresa-lista"),
+    path('producto/',ProductoView.as_view(),name='producto-inicio'),
+    path('producto/crear',ProductoCreate.as_view(),name="producto-crear")
 ]

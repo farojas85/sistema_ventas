@@ -19,4 +19,92 @@
 {% endblock content_header %}
 
 {% block contenido %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    Listado Productos
+                    <a class="btn bg-maroon btn-sm btn-rounded btn-nuevo"
+                        href="{% url 'prod:producto-crear' %}">
+                        <i class="fas fa-plus"></i> Nuevo Producto
+                    </a>
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 table-responsive">
+                        <table class="table table-sm table-bordered nowrap" id="tabla-producto">
+                            <thead class="bg-info">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>NOMBRE TIPO</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if not tipoproductos %}
+                                    <tr>
+                                        {% comment %} <td class="text-danger text-center" colspan="4">--Datos No Registrados--</td> {% endcomment %}
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                {% else %}
+                                    {% for item in tipoproductos %}
+                                    <tr>
+                                        <td class="text-center">{{ item.id }}</td>
+                                        <td>{{ item.nombre }}</td>
+                                        <td class="text-center">
+                                            {% if item.estado == 1 %}
+                                            <span class="badge badge-success">Activo</span>
+                                            {% else %}
+                                            <span class="badge badge-danger">Inactivo</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-warning btn-xs btn-editar" data-id="{{ item.id }}">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            {% if item.estado == 1 %}
+                                            <button class="btn btn-danger btn-xs btn-eliminar" data-id="{{ item.id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                            {% else %}
+                                            <button class="btn bg-purple btn-xs btn-restaurar" title="Restauar Sucursal" data-id="{{ item.id }}">
+                                                <i class="fas fa-trash-restore-alt"></i>
+                                            </button>
+                                            {% endif%}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id='modal-producto-eliminar'>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            {% include 'prod/producto/eliminar.html' %}
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id='modal-producto-restaurar'>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            {% include 'prod/producto/habilitar.html' %}
+        </div>
+    </div>
+</div>
 {% endblock contenido %}
+
+{% block scripts %}
+<script src="/static/base/js/inventario/producto.js"></script>
+{% endblock scripts %}

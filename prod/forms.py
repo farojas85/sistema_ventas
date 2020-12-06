@@ -29,3 +29,16 @@ class CategoriaForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({
                 'class':'form-control'
             })
+
+class ProductoForm(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = ['id','empresa','categoria','tipo_producto','numero_parte','codigo_proveedor',
+                'codigo_interno','codigo_sunat','marca','nombre','detalle','imagen',
+                'afecto_igv','estado']
+        labels = {'empresa':'Empresa','categoria':'Categoría','tipo_producto':'Tipo Producto',
+                    'estado':'Estado'}
+        widget = {'id':forms.HiddenInput,'categoria':forms.Select,'empresa':forms.Select,'marca':forms.Select,
+                    'tipo_producto':forms.Select,'estado':forms.CheckboxInput}
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args,**kwargs)
