@@ -329,6 +329,51 @@
             </div>
             <!-- /.modal-dialog -->
         </div>
+        <div class="modal" tabindex="-1" role="dialog" id="modal-default">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-default-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"id="modal-default-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" tabindex="-1" role="dialog" id="modal-lg">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-lg-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"id="modal-lg-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" tabindex="-1" role="dialog" id="modal-xl">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-xl-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"id="modal-xl-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- ./wrapper -->
 
@@ -364,6 +409,19 @@
     <script src="{% static 'base/plugins/custom-file-input/bs-custom-file-input.min.js' %}"></script>
     <script src="{% static 'base/js/adminlte.min.js' %}"></script>
     <script src="{% static 'base/plugins/sweetalert2/sweetalert2.min.js' %}"></script>
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+    </script>
     <script src="{% static 'base/plugins/datatables/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'base/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
     <script src="{% static 'base/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>

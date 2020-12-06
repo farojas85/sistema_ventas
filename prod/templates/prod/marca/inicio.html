@@ -19,4 +19,90 @@
 {% endblock content_header %}
 
 {% block contenido %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    Listado Marcas
+                    <a class="btn bg-maroon btn-sm btn-rounded btn-nuevo">
+                        <i class="fas fa-plus"></i> Nueva Marca
+                    </a>
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 table-responsive">
+                        <table class="table table-sm table-bordered nowrap" id="tabla-marca">
+                            <thead class="bg-info">
+                                <tr>
+                                    <th>#</th>
+                                    <th>NOMBRE MARCA</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if not marcas %}
+                                    <tr>
+                                        <td class="text-danger text-center" colspan="6">--Datos No Registrados--</td>
+                                    </tr>
+                                {% else %}
+                                    {% for item in marcas %}
+                                    <tr>
+                                        <td class="text-center">{{ item.id }}</td>
+                                        <td>{{ item.nombre }}</td>
+                                        <td class="text-center">
+                                            {% if item.estado == 1 %}
+                                            <span class="badge badge-success">Activo</span>
+                                            {% else %}
+                                            <span class="badge badge-danger">Inactivo</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% comment %} <button class="btn bg-primary btn-xs btn-mostrar" data-id="{{ item.id }}">
+                                                <i class="fas fa-eye"></i>
+                                            </button> {% endcomment %}
+                                            <button class="btn btn-warning btn-xs btn-editar" data-id="{{ item.id }}">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            {% if item.estado == 1 %}
+                                            <button class="btn btn-danger btn-xs btn-eliminar" data-id="{{ item.id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                            {% else %}
+                                            <button class="btn bg-purple btn-xs btn-restaurar" title="Restauar Sucursal" data-id="{{ item.id }}">
+                                                <i class="fas fa-trash-restore-alt"></i>
+                                            </button>
+                                            {% endif%}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id='modal-marca-eliminar'>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            {% include 'prod/marca/eliminar.html' %}
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id='modal-marca-restaurar'>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            {% include 'prod/marca/habilitar.html' %}
+        </div>
+    </div>
+</div>
 {% endblock contenido %}
+{% block scripts %}
+<script src="/static/base/js/inventario/marca.js"></script>
+{% endblock scripts %}

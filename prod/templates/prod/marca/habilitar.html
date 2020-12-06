@@ -1,0 +1,21 @@
+<form method="post" action="" class="" id="form-marca-habilitar">
+    {% csrf_token %}
+    <div class="modal-header table-success">
+        <h5 class="modal-title">Habilitar Marca</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <input type="hidden" id="id_marca_habilitar" name ="id_marca_habilitar" >
+        <h6>¿Está Seguro de Habilitar la marca Seleccionada?</h6>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn bg-success btn-habilitar">
+            <i class="fas fa-check"></i> habilitar
+        </button>
+        <button type="button" class="btn bg-danger" data-dismiss="modal">
+            <i class="fas fa-times"></i> Cancelar
+        </button>
+    </div>
+</form>
