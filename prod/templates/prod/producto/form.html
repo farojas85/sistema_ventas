@@ -28,51 +28,195 @@
         </h3>
     </div>
     <div class="card-body">
+        {% load widget_tweaks %}
         <form method="POST" class="from-inline" id="form-producto">
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
                 {{ hidden }}
             {% endfor%}
             <div class="form-group row">
-                <label class="col-form-label col-form-label-sm col-md-1" 
+                <label class="col-form-label col-form-label-sm col-md-2" 
                     for"{{ form.empresa.id_for_label }}">{{ form.empresa.label}}</label>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <button type="button" class="btn btn-info btn-sm btn-empresa-buscar">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
-                        <select id="{{ form.empresa.id_for_label }}" name="{{form.empresa.name }}"
+                        {{ form.empresa|add_class:'form-control form-control-sm'}}
+                        {% comment %} <select id="{{ form.empresa.id_for_label }}" name="{{form.empresa.name }}"
                             class="form-control form-control-sm {% if form.empresa.errors %}is-invalid{% endif %}" >
                             <option value="" selected>-Seleccionar-</option>
-                        </select>                        
+                        </select>                         {% endcomment %}
                     </div>
-                    {% comment %} <input type="text"  id="{{ form.empresa.id_for_label }}" name="{{form.empresa.name }}"
-                        class="form-control form-control-sm {% if form.empresa.errors %}is-invalid{% endif %}" 
-                        value = "{% if form.empresa.value %}{{form.empresa.value}}{% endif %}"> {% endcomment %}
                     {% for error in form.empresa.errors %}
                         <small class="text-danger font-weight-bold">{{ error }}</small>
                     {% endfor %}
                 </div>
-                <label class="col-form-label col-form-label-sm col-md-1" 
+                <label class="col-form-label col-form-label-sm col-md-2" 
+                    for"{{ form.tipo_producto.id_for_label }}">{{ form.tipo_producto.label}}</label>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-info btn-sm btn-tipo-producto-buscar">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        {{ form.tipo_producto|add_class:'form-control form-control-sm' }}
+                        {% comment %} <select id="{{ form.tipo_producto.id_for_label }}" name="{{form.tipo_producto.name }}"
+                            class="form-control form-control-sm {% if form.tipo_producto.errors %}is-invalid{% endif %}" >
+                            <option value="" selected>-Seleccionar-</option>
+                        </select> {% endcomment %}
+                    </div>
+                    {% for error in form.tipo_producto.errors %}
+                        <small class="text-danger font-weight-bold">{{ error }}</small>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-form-label-sm col-md-2" 
                     for"{{ form.categoria.id_for_label }}">{{ form.categoria.label}}</label>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <button type="button" class="btn btn-info btn-sm btn-categoria-buscar">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
-                        <select id="{{ form.categoria.id_for_label }}" name="{{form.categoria.name }}"
+                        {{ form.categoria|add_class:'form-control form-control-sm' }}
+                        {% comment %} <select id="{{ form.categoria.id_for_label }}" name="{{form.categoria.name }}"
                             class="form-control form-control-sm {% if form.categoria.errors %}is-invalid{% endif %}" >
                             <option value="" selected>-Seleccionar-</option>
-                        </select>                        
+                        </select> {% endcomment %}
                     </div>
                     {% for error in form.categoria.errors %}
                         <small class="text-danger font-weight-bold">{{ error }}</small>
                     {% endfor %}
                 </div>
+                <label class="col-form-label col-form-label-sm col-md-2" 
+                    for"{{ form.marca.id_for_label }}">{{ form.marca.label}}</label>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-info btn-sm btn-marca-buscar">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        {% comment %} <select id="{{ form.marca.id_for_label }}" name="{{form.marca.name }}"
+                            class="form-control form-control-sm {% if form.marca.errors %}is-invalid{% endif %}" >
+                            <option value="" selected>-Seleccionar-</option>
+                        </select>{% endcomment %}
+                        {{ form.marca|add_class:'form-control form-control-sm' }}
+                    </div>
+                    {% for error in form.marca.errors %}
+                        <small class="text-danger font-weight-bold">{{ error }}</small>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-form-label-sm col-md-2" 
+                    for"{{ form.numero_parte.id_for_label }}">{{ form.numero_parte.label}}</label>
+                <div class="col-md-4">
+                    {% comment %} <input type="text" id="{{ form.numero_parte.id_for_label }}" name="{{form.numero_parte.name }}"
+                        class="form-control form-control-sm {% if form.numero_parte.errors %}is-invalid{% endif %}" 
+                        placeholder="Ingrese Número Parte"> {% endcomment %}
+                    {{ form.numero_parte|add_class:'form-control form-control-sm' }}
+                    {% for error in form.numero_parte.errors %}
+                        <small class="text-danger font-weight-bold">{{ error }}</small>
+                    {% endfor %}
+                </div>
+                <label class="col-form-label col-form-label-sm col-md-2" 
+                    for"{{ form.codigo_proveedor.id_for_label }}">{{ form.codigo_proveedor.label}}</label>
+                <div class="col-md-4">
+                    {% comment %} <input type="text" id="{{ form.codigo_proveedor.id_for_label }}" name="{{form.codigo_proveedor.name }}"
+                        class="form-control form-control-sm {% if form.codigo_proveedor.errors %}is-invalid{% endif %}" 
+                        placeholder="Ingrese Código Proveedor"> {% endcomment %}
+                    {{ form.codigo_proveedor|add_class:'form-control form-control-sm' }}
+                    {% for error in form.codigo_proveedor.errors %}
+                        <small class="text-danger font-weight-bold">{{ error }}</small>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-form-label-sm col-md-2" 
+                    for"{{ form.codigo_interno.id_for_label }}">{{ form.codigo_interno.label}}</label>
+                <div class="col-md-4">
+                    {% comment %} <input type="text" id="{{ form.codigo_interno.id_for_label }}" name="{{form.codigo_interno.name }}"
+                        class="form-control form-control-sm {% if form.codigo_interno.errors %}is-invalid{% endif %}" 
+                        placeholder="Ingrese Código Interno"> {% endcomment %}
+                    {{ form.codigo_interno|add_class:'form-control form-control-sm' }}
+                    {% for error in form.codigo_interno.errors %}
+                        <small class="text-danger font-weight-bold">{{ error }}</small>
+                    {% endfor %}
+                </div>
+                <label class="col-form-label col-form-label-sm col-md-2" 
+                    for"{{ form.codigo_sunat.id_for_label }}">{{ form.codigo_sunat.label}}</label>
+                <div class="col-md-4">
+                    {% comment %} <input type="text" id="{{ form.codigo_sunat.id_for_label }}" name="{{form.codigo_sunat.name }}"
+                        class="form-control form-control-sm {% if form.codigo_sunat.errors %}is-invalid{% endif %}" 
+                        placeholder="Ingrese Código Sunat"> {% endcomment %}
+                    {{ form.codigo_sunat|add_class:'form-control form-control-sm' }}
+                    {% for error in form.codigo_sunat.errors %}
+                        <small class="text-danger font-weight-bold">{{ error }}</small>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-form-label-sm col-md-2" 
+                    for"{{ form.nombre.id_for_label }}">{{ form.nombre.label}}</label>
+                <div class="col-md-6">
+                    {% comment %} <input type="text" id="{{ form.nombre.id_for_label }}" name="{{form.nombre.name }}"
+                        class="form-control form-control-sm {% if form.nombre.errors %}is-invalid{% endif %}" 
+                        placeholder="Ingrese Nombre Producto"> {% endcomment %}
+                    {{ form.nombre|add_class:'form-control form-control-sm' }}
+                    {% for error in form.nombre.errors %}
+                        <small class="text-danger font-weight-bold">{{ error }}</small>
+                    {% endfor %}
+                </div>
+                <label class="col-form-label col-form-label-sm col-md-1" 
+                    for"{{ form.afecto_igv.id_for_label }}">{{ form.afecto_igv.label}}</label>
+                <div class="col-md-2">
+                    <input type="checkbox" id="{{ form.afecto_igv.id_for_label }}" name="{{form.afecto_igv.name }}" 
+                        {% if form.afecto_igv.value == 1 %}checked {% endif%}>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-form-label-sm col-md-2" 
+                    for"{{ form.detalle.id_for_label }}">{{ form.detalle.label}}</label>
+                <div class="col-md-6">
+                    {% comment %} <textarea id="{{ form.detalle.id_for_label }}" name="{{form.detalle.name }}"
+                        class="form-control form-control-sm {% if form.detalle.errors %}is-invalid{% endif %}" 
+                        placeholder="Ingrese Código Sunat" rows="3"></textarea> {% endcomment %}
+                    {{ form.detalle|add_class:'form-control form-control-sm' }}
+                    {% for error in form.detalle.errors %}
+                        <small class="text-danger font-weight-bold">{{ error }}</small>
+                    {% endfor %}
+                </div>
+                <label class="col-form-label col-form-label-sm col-md-1" 
+                    for"{{ form.estado.id_for_label }}">{{ form.estado.label}}</label>
+                <div class="col-md-2">
+                    <input type="checkbox" id="{{ form.estado.id_for_label }}" name="{{form.estado.name }}" 
+                        {% if form.estado.value == 1 %}checked {% endif%}>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-form-label-sm col-md-2" 
+                    for"{{ form.imagen.id_for_label }}">{{ form.imagen.label}}</label>
+                <div class="col-md-6">
+                    <input type="file" id="{{ form.imagen.id_for_label }}" name="{{form.imagen.name }}"
+                        class="form-control form-control-sm {% if form.imagen.errors %}is-invalid{% endif %}" 
+                        placeholder="Sube Archivo">
+                </div>
+                {% comment %} {{ form.imagen }} {% endcomment %}
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-success" id="modal-btn-guardar">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+                <a href="{% url 'prod:producto-inicio' %}" class="btn btn-danger">
+                    <i class="fas fa-times"></i> Cerrar
+                </a>
             </div>
         </form>
     </div>

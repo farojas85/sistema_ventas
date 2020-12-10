@@ -37,8 +37,16 @@ class ProductoForm(forms.ModelForm):
                 'codigo_interno','codigo_sunat','marca','nombre','detalle','imagen',
                 'afecto_igv','estado']
         labels = {'empresa':'Empresa','categoria':'Categoría','tipo_producto':'Tipo Producto',
+                    'numero_parte':'Número Parte','codigo_proveedor':'Código Proveedor',
+                    'codigo_interno':'Código Interno','codigo_sunat':'Código Sunat',
+                    'nombre':'Nombre Producto','detalle':'Detalle Producto',
+                    'imagen':'Imagen Producto','afecto_igv':'Igv Afecto',
                     'estado':'Estado'}
         widget = {'id':forms.HiddenInput,'categoria':forms.Select,'empresa':forms.Select,'marca':forms.Select,
+                    'numero_parte':forms.TextInput,'codigo_proveedor':forms.TextInput,
+                    'codigo_interno':forms.TextInput,'codigo_sunat':forms.TextInput,
+                    'nombre':forms.TextInput,'detalle':forms.Textarea(attrs={'rows':1}),
+                    'imagen':forms.FileInput,'afecto_igv':forms.CheckboxInput,
                     'tipo_producto':forms.Select,'estado':forms.CheckboxInput}
     def __init__(self, *args, **kwargs):
         super().__init__(*args,**kwargs)

@@ -2,8 +2,8 @@ from django.urls import path
 from .views import MarcaView,marca_create,marca_update,marca_inhabilitar,marca_habilitar,marca_eliminar
 from .views import CategoriaView,categoria_create,categoria_update,categoria_inhabilitar,categoria_habilitar,categoria_eliminar
 from .views import TipoProductoView
-from .views import ProductoView,ProductoCreate
-from .views import EmpresaList
+from .views import ProductoView,ProductoCreate,ProductoUpdate
+from .views import EmpresaList,CategoriaLista,TipoProductoLista,MarcaLista
 
 urlpatterns = [
     path('marca/',MarcaView.as_view(),name="marca-inicio"),
@@ -20,6 +20,10 @@ urlpatterns = [
     path('categoria/eliminar',categoria_eliminar,name="categoria-eliminar"),
     path('tipoproducto/',TipoProductoView.as_view(),name="tipoproducto-inicio"),
     path('empresa/lista',EmpresaList.as_view(),name="empresa-lista"),
+    path('categoria/lista',CategoriaLista.as_view(),name='categoria-lista'),
+    path('tipoproducto/lista',TipoProductoLista.as_view(),name='tipoproducto-lista'),
+    path('marca/lista',MarcaLista.as_view(),name="marca-lista"),
     path('producto/',ProductoView.as_view(),name='producto-inicio'),
-    path('producto/crear',ProductoCreate.as_view(),name="producto-crear")
+    path('producto/crear',ProductoCreate.as_view(),name="producto-crear"),
+    path('producto/editar/<int:pk>',ProductoUpdate.as_view(),name="producto-actualizar")
 ]

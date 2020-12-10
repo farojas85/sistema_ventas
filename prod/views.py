@@ -166,6 +166,20 @@ class EmpresaList(generic.View):
 class CategoriaLista(generic.View):
     def get(self,request):
         data = dict()
+        data['categorias'] = list(Categoria.objects.all().values('id','nombre'))
+        return JsonResponse(data)
+
+class TipoProductoLista(generic.View):
+    def get(self,request):
+        data = dict()
+        data['tipo_productos'] = list(TipoProducto.objects.all().values('id','nombre'))
+        return JsonResponse(data)
+
+class MarcaLista(generic.View):
+    def get(self,request):
+        data = dict()
+        data['marcas'] = list(Marca.objects.all().values('id','nombre'))
+        return JsonResponse(data)
 
 class ProductoCreate(LoginRequiredMixin,generic.CreateView):
     model = Producto
@@ -173,3 +187,10 @@ class ProductoCreate(LoginRequiredMixin,generic.CreateView):
     form_class= ProductoForm
     success_url = reverse_lazy('prod:producto-inicio')
     login_url = 'bases:login'
+
+class ProductoUpdate(LoginRequiredMixin,generic.UpdateView):
+    model = Producto
+    form_class = ProductoForm
+    template_name = 'prod/producto/form.html'
+    success_url = reverse_lazy('prod:producto-inicio')
+    logi_url='bases:login'

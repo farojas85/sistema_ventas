@@ -38,13 +38,16 @@
                             <thead class="bg-info">
                                 <tr>
                                     <th>Id</th>
-                                    <th>NOMBRE TIPO</th>
+                                    <th>NOMBRE</th>
+                                    <th>Tipo Producto</th>
+                                    <th>Categor&iacute;a</th>
+                                    <th>Marca</th>
                                     <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% if not tipoproductos %}
+                                {% if not productos %}
                                     <tr>
                                         {% comment %} <td class="text-danger text-center" colspan="4">--Datos No Registrados--</td> {% endcomment %}
                                         <td></td>
@@ -53,10 +56,13 @@
                                         <td></td>
                                     </tr>
                                 {% else %}
-                                    {% for item in tipoproductos %}
+                                    {% for item in productos %}
                                     <tr>
                                         <td class="text-center">{{ item.id }}</td>
                                         <td>{{ item.nombre }}</td>
+                                        <td>{{ item.tipo_producto.nombre }}</td>
+                                        <td>{{ item.categoria.nombre }}</td>
+                                        <td>{{ item.marca.nombre }}</td>
                                         <td class="text-center">
                                             {% if item.estado == 1 %}
                                             <span class="badge badge-success">Activo</span>
@@ -65,9 +71,12 @@
                                             {% endif %}
                                         </td>
                                         <td>
-                                            <button class="btn btn-warning btn-xs btn-editar" data-id="{{ item.id }}">
+                                            <a href="editar/{{item.id}}" title="Editar" type="button" class="btn btn-warning btn-sm">
                                                 <i class="fas fa-edit"></i>
-                                            </button>
+                                            </a>
+                                            {% comment %} <button class="btn btn-warning btn-xs btn-editar" data-id="{{ item.id }}">
+                                                <i class="fas fa-edit"></i>
+                                            </button> {% endcomment %}
                                             {% if item.estado == 1 %}
                                             <button class="btn btn-danger btn-xs btn-eliminar" data-id="{{ item.id }}">
                                                 <i class="fas fa-trash"></i>
