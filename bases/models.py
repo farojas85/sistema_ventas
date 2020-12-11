@@ -9,3 +9,9 @@ class ClaseModelo(models.Model):
 
     class Meta:
         abstract=True
+
+class ClaseBigPk(models.Model):
+    id = models.BigAutoField(primary_key=True,verbose_name="ID")
+
+    class Meta:
+        abstract = True

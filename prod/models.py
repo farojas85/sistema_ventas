@@ -28,6 +28,7 @@ class Marca(ClaseModelo):
         return '{}'.format(self.nombre)
 
 class Producto(ClaseModelo):
+    id = models.BigAutoField(primary_key=True,verbose_name='ID')
     tipo_producto = models.ForeignKey(TipoProducto, on_delete=models.CASCADE, blank=True, null=True)
     categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE,blank=True, null=True)
     empresa = models.ForeignKey(Empresa,on_delete=models.CASCADE,blank=True, null=True)
