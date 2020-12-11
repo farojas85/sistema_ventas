@@ -5,9 +5,27 @@ class EmpresaClase:
     @classmethod
     def cargar_datos(cls,apps,schema_editor):
         db_alias = schema_editor.connection.alias
+        
         Empresa = apps.get_model('emp','Empresa')
+        
         cls.empresa_object, created = Empresa.objects.get_or_create(ruc='10000000001',razon_social="Mi Empresa",direccion_principal='Direccion')
         print(f'\nEmpresa Creada con ID: '+str(cls.empresa_object.id))
+
+        TipoPuntoVenta = apps.get_model('emp','TipoPuntoVenta')
+
+        cls.tipo_tactil, created = TipoPuntoVenta.objects.get_or_create(nombre='Táctil')
+        print(f'\nTipo Punto de Venta creado: '+str(cls.tipo_tactil.nombre))
+
+        cls.tipo_no_tactil, created = TipoPuntoVenta.objects.get_or_create(nombre='No Táctil')
+        print(f'\nTipo Punto de Venta creado: '+str(cls.tipo_no_tactil.nombre))
+
+        TipoAlmacen = apps.get_model('emp','TipoAlmacen')
+
+        cls.tipo_superficie, created = TipoAlmacen.objects.get_or_create(nombre='Almacén en Superficie')
+        print(f'\nTipo Almacén creado: '+str(cls.tipo_superficie.nombre))
+
+        cls.tipo_tanque, created = TipoAlmacen.objects.get_or_create(nombre='Almacén Tanque')
+        print(f'\nTipo Almacén creado: '+str(cls.tipo_tanque.nombre))
 
 class Migration(migrations.Migration):
 
