@@ -97,6 +97,9 @@ pymysql.install_as_MySQLdb()
 
 AUTH_USER_MODEL = 'cuenta.Usuario'
 
+LOGIN_REDIRECT_URL ='home'
+LOGOUT_REDIRECT_URL ='home'
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',

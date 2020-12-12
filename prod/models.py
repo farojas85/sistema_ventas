@@ -8,15 +8,19 @@ class Categoria(ClaseModelo):
     nombre= models.CharField(max_length=191,help_text='Descripción Producto')
     imagen= models.BinaryField(blank=True, null=True,help_text="Imagen Producto",editable=True)
     empresa = models.ForeignKey(Empresa,on_delete=models.CASCADE,blank=True, null=True)
+
     class Meta:
         verbose_name_plural= 'categorias'
+        
     def __str__(self):
         return '{}'.format(self.nombre)
 
 class TipoProducto(ClaseModelo):
     nombre= models.CharField(max_length=191,help_text='Descripción Tipo Producto')
+
     class Meta:
         verbose_name_plural= 'tipo_productos'
+
     def __str__(self):
         return '{}'.format(self.nombre)
 
@@ -24,6 +28,7 @@ class Marca(ClaseModelo):
     nombre= models.CharField(max_length=191,help_text='Descripción Tipo Producto')
     class Meta:
         verbose_name_plural= 'marcas'
+
     def __str__(self):
         return '{}'.format(self.nombre)
 
@@ -41,5 +46,9 @@ class Producto(ClaseModelo):
     detalle = models.TextField(max_length=255,help_text="Detalle de Producto",blank=True, null=True)
     imagen= models.ImageField(blank=True, null=True,help_text="Imagen Producto",editable=True,upload_to="productos/images/")
     afecto_igv = models.BooleanField(blank=True, null=True,help_text="IGV Afecto")
+
     class Meta:
         verbose_name_plural= 'productos'
+    
+    def __str__(self):
+        return '{}'.format(self.nombre)

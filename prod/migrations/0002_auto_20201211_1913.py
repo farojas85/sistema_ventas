@@ -20,7 +20,7 @@ class DatosMigracion:
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('prod', '0002_auto_20201210_2012'),
+        ('prod', '0001_initial'),
     ]
 
     operations = [

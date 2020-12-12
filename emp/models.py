@@ -5,25 +5,41 @@ from bases.models import ClaseModelo
 #Modelo Departamento
 class Departamento(models.Model):
     nombre= models.CharField(max_length=191,help_text='Descripción Departamento')
+
+    def __str__(self):
+        return '{}'.format(self.nombre)
+
     class Meta:
         verbose_name_plural= 'Departamentos'
 
 class Provincia(models.Model):
     nombre = models.CharField(max_length=191, help_text="Descripción de Provincia")
     departamento = models.ForeignKey(Departamento,on_delete=models.CASCADE,blank=True, null=True)
+
+    def __str__(self):
+        return '{}'.format(self.nombre)
+
     class Meta:
         verbose_name_plural = 'Provincias'
 
 class Distrito(models.Model):
     nombre = models.CharField(max_length=191, help_text="Descripción de Distrito")
     provincia = models.ForeignKey(Provincia,on_delete=models.CASCADE,blank=True, null=True)
+
+    def __str__(self):
+        return '{}'.format(self.nombre)
+
     class Meta:
-        verbose_name_plural = 'Distritos'
+        verbose_name_plural = 'Distritos'    
 
 class TipoEmpresa(models.Model):
     codigo = models.CharField(max_length=2, help_text="Codigo Tipo Empresa")
     nombre = models.CharField(max_length=191, help_text="Descripción de Tipo Empresa")
     comentario = models.CharField(max_length=191, help_text="Comentario de Tipo Empresa",blank=True, null=True)
+    
+    def __str__(self):
+        return '{}'.format(self.nombre)
+
     class Meta:
         verbose_name_plural = 'TipoEmpresas'
 
@@ -65,7 +81,8 @@ class Sucursal(ClaseModelo):
     ubigeo = models.ForeignKey(Distrito,on_delete=models.CASCADE,blank=True, null=True)
 
     def __str__(self):
-        return '{}'.format(self.nombre)    
+        return '{}'.format(self.nombre)
+
     def save(self):
         self.nombre =self.nombre.upper()
         super(Sucursal,self).save()
@@ -73,13 +90,17 @@ class Sucursal(ClaseModelo):
     class Meta:
         verbose_name_plural= 'Sucursales'
 
+
 class TipoAlmacen(ClaseModelo):
     nombre = models.CharField(max_length=191,blank=True, null=True)
+
     def __str__(self):
         return '{}'.format(self.nombre)
+        
     def save(self):
         self.nombre =self.nombre.upper()
         super(TipoAlmacen,self).save()
+
     class Meta:
         verbose_name_plural= 'TipoAlmacenes'
 
@@ -87,6 +108,7 @@ class UnidadMedida(ClaseModelo):
     id_sunat = models.CharField(max_length=10,blank=True, null=True)
     nombre = models.CharField(max_length=191,blank=True, null=True)
     impresion= models.CharField(max_length=191, blank=True, null=True)
+
     def __str__(self):
         return '{}'.format(self.nombre)
 

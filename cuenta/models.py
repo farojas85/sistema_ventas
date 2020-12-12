@@ -84,6 +84,7 @@ class TipoDocumento(ClaseModelo):
 
 class Sexo(models.Model):
     nombre = models.CharField(max_length=191,help_text="Descripción Sexo")
+    
     class Meta:
         verbose_name_plural='sexos'
     
@@ -106,15 +107,15 @@ class Persona(ClaseModelo):
         return '{0} {1}'.format(self.nombres,self.apellidos)
 
 class UsuarioManager(BaseUserManager):
-    def create_user(selft,empresa,persona,nombre,correo,password=None,**extra_fields):
-        if not nombre:
+    def create_user(selft,empresa,persona,username,email,password,**extra_fields):
+        if not username:
             raise ValueError('Debe Ingresar Nombre de Usuario')
 
         usuario  = self.model(
             empresa = empresa,
             persona = persona,
-            nombre=nombre,
-            correo = self.normalize_email(correo)
+            username=username,
+            email = self.normalize_email(email)
         )
 
         usuario.set_password(password)
@@ -126,8 +127,8 @@ class Usuario(AbstractBaseUser):
     id = models.BigAutoField(primary_key=True,verbose_name='ID')
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE,help_text="Persona Usuario",blank=True,null = True)
     persona =  models.OneToOneField(Persona, on_delete=models.CASCADE,help_text="Persona Usuario",blank=True,null = True)
-    nombre = models.CharField(max_length=191,unique=True,help_text="Nombre Usuario")
-    correo = models.EmailField(help_text="Correo Electrónico", max_length=191,unique=True,blank=True, null=True)
+    username = models.CharField(max_length=191,unique=True,help_text="Nombre Usuario")
+    email = models.EmailField(help_text="Correo Electrónico", max_length=191,unique=True,blank=True, null=True)
     imagen  = models.ImageField(max_length=191,help_text="Imagen de Perfil",upload_to="media/imagen/", blank=True,null=True)
     estado = models.BooleanField(default=True)
     fecha_creada = models.DateTimeField(auto_now_add=True)
@@ -136,17 +137,20 @@ class Usuario(AbstractBaseUser):
     objects = UsuarioManager()
     roles = models.ManyToManyField(Role)
 
-    USERNAME_FIELD= 'nombre'
-    REQUIRED_FIELD=['nombre','correo']
+    USERNAME_FIELD= 'username'
+    REQUIRED_FIELD=['username','email']
     
     def __str__(self):
-        return '{}'.format(self.nombre)
+        return '{}'.format(self.username)
     
-    def get_full_name(selft):
-        return self.nombre
+    def get_user(self):
+        return self.usename
+        
+    def get_full_name(self):
+        return self.username
     
-    def get_short_name(selft):
-        return self.nombre
+    def get_short_name(self):
+        return self.username
 
     @property
     def is_active(self):

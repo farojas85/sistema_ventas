@@ -82,18 +82,19 @@ class DatosMigracion:
         
         Usuario = apps.get_model('cuenta','Usuario')
 
-        cls.usuario_nuevo, created = Usuario.objects.get_or_create(empresa_id = 1, persona_id = cls.persona_uno.id, nombre = 'admin',
-            password = make_password('12345'),correo = 'master@ejemplo.com')
-        print(f'Usuario Creado: '+str(cls.usuario_nuevo.nombre))
+        cls.usuario_nuevo, created = Usuario.objects.get_or_create( 
+            persona_id = cls.persona_uno.id, username = 'admin',
+            password = make_password('12345'),email = 'master@ejemplo.com')
+        print(f'Usuario Creado: '+str(cls.usuario_nuevo.username))
 
         cls.usuario_nuevo.roles.add(cls.role_superusuario)
-    
+        print(f'\nRol '+str(cls.role_superusuario.nombre)+' asignado a '+str(cls.usuario_nuevo.username))
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cuenta', '0002_auto_20201210_2000'),
+        ('cuenta', '0001_initial'),
     ]
 
     operations = [

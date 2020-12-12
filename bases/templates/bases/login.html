@@ -16,20 +16,20 @@
                 <div class="form-group row">
                     <div class="input-group mb-3 col-md-12">
                         <input type="text" class="form-control" placeholder="Nombre de Usuarios" 
-                                id="id_nombre" name="nombre">
+                                id="id_username" name="username">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
                         </div>
                     </div>
-                    {% if form.nombre.errors %}
-                        {% for error in form.nombre.errors %}
+                    {% if form.username.errors %}
+                        {% for error in form.username.errors %}
                         <span class="text-danger col-md-12">{{error|escape }}</span>
                         {% endfor %}
                     {% endif %}
-                    {% if form.nombre.non_field_errors %}
-                        {% for error in form.nombre.non_field_errors %}
+                    {% if form.username.non_field_errors %}
+                        {% for error in form.username.non_field_errors %}
                         <span class="text-danger col-md-12">{{error|escape }}</span>
                         {% endfor %}
                     {% endif %}
