@@ -1,5 +1,6 @@
 from django import forms
 from .models import Marca,TipoProducto,Categoria,Producto
+from .models import ProductoPrecio,ProductoPreparado
 
 class MarcaForm(forms.ModelForm):
     class Meta:
@@ -48,5 +49,16 @@ class ProductoForm(forms.ModelForm):
                     'nombre':forms.TextInput,'detalle':forms.Textarea(attrs={'rows':1}),
                     'imagen':forms.FileInput,'afecto_igv':forms.CheckboxInput,
                     'tipo_producto':forms.Select,'estado':forms.CheckboxInput}
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args,**kwargs)
+
+class ProductoPreparadoForm(forms.ModelForm):
+    class Meta:
+        model = ProductoPreparado
+        fields = ['id','producto','compuesto','descripcion','estado']
+        labels = {'producto':'Producto','compuesto':'Compuesto','descripcion':'Descripción',
+                    'estado':'Estado'}
+        widget = {'id':forms.HiddenInput,'producto':forms.Select,'compuesto':forms.TextInput,
+                    'descripcion':forms.TextInput,'estado':forms.CheckboxInput}
     def __init__(self, *args, **kwargs):
         super().__init__(*args,**kwargs)

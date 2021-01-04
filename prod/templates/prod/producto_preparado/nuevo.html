@@ -1,0 +1,73 @@
+{% extends 'app/base.html' %}
+
+{% block content_header %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0"><i class="fas fa-box-open nav-icon"></i>Producto Preparado</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{% url 'bases:home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'prod:producto-inicio' %}">Producto</a></li>
+                    <li class="breadcrumb-item active">Nuevo Producto</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+{% endblock %}
+
+{% block contenido %}
+<div class="card card-outline card-primary">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fas fa-plus-square"></i>
+            Nuevo Producto Preparado
+        </h3>
+    </div>
+    <div class="card-body">
+        {% load widget_tweaks %}
+        <form method="POST" class="from-inline" id="form-producto-preparado">
+            <div class="form-group row">
+                <label class="col-form-label col-form-label-sm col-md-1" 
+                    for"{{ form.producto.id_for_label }}">{{ form.producto.label}}</label>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-info btn-sm btn-producto-buscar">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        {{ form.producto|add_class:'form-control form-control-sm'}}
+                    </div>
+                    {% for error in form.empresa.errors %}
+                        <small class="text-danger font-weight-bold">{{ error }}</small>
+                    {% endfor %}
+                </div>
+                <label class="col-form-label col-form-label-sm col-md-2" >Cantidad Componentes</label>
+                <div class="col-md-2">
+                    <input type="number" id="id_cantidad_ingredientes" name="cantidad_ingredientes"
+                        class="form-control form-control-sm" min="1">  
+                    {% for error in form.cantidad_ingredientes.errors %}
+                        <small class="text-danger font-weight-bold">{{ error }}</small>
+                    {% endfor %}
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary btn-sm btn-generar" >
+                        <i class="fas fa-circle"></i> Generar
+                    </button>
+                </div>
+            </div>
+            <div class="row mt-2 text-center" id="ingredientes">
+
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock contenido%}
+
+{% block scripts %}
+<script src="/static/base/js/inventario/producto_preparado.js"></script>
+{% endblock scripts %}

@@ -3,6 +3,7 @@ from .views import MarcaView,marca_create,marca_update,marca_inhabilitar,marca_h
 from .views import CategoriaView,categoria_create,categoria_update,categoria_inhabilitar,categoria_habilitar,categoria_eliminar
 from .views import TipoProductoView
 from .views import ProductoView,ProductoCreate,ProductoUpdate
+from .views import ProductoPreparadoView,ProductoPreparadoNew,ProductosNoLista,ProductoPrimos
 from .views import EmpresaList,CategoriaLista,TipoProductoLista,MarcaLista
 
 urlpatterns = [
@@ -25,5 +26,9 @@ urlpatterns = [
     path('marca/lista',MarcaLista.as_view(),name="marca-lista"),
     path('producto/',ProductoView.as_view(),name='producto-inicio'),
     path('producto/crear',ProductoCreate.as_view(),name="producto-crear"),
-    path('producto/editar/<int:pk>',ProductoUpdate.as_view(),name="producto-actualizar")
+    path('producto/editar/<int:pk>',ProductoUpdate.as_view(),name="producto-actualizar"),
+    path('producto-preparado/',ProductoPreparadoView.as_view(),name="producto-preparado-inicio"),
+    path('producto-preparado/nuevo',ProductoPreparadoNew.as_view(),name="producto-preparado-nuevo"),
+    path('productos/lista-no-ingredientes',ProductosNoLista.as_view(),name="producto-lista-no-ingredientes"),
+    path('productos/lista-primos',ProductoPrimos.as_view(),name="producto-lista-primos")
 ]

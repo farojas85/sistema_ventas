@@ -162,3 +162,24 @@ class PuntoVenta(ClaseModelo):
 
     class Meta:
         verbose_name_plural= 'PuntoVentas'
+
+class Configuracion(models.Model):
+    id = models.BigAutoField(primary_key=True,verbose_name='ID')
+    nombre =  models.CharField(max_length=191,blank=True, null=True,unique=True)
+    descripcion =  models.CharField(max_length=255,blank=True, null=True)
+    observacion =  models.CharField(max_length=500,blank=True, null=True)
+
+    def __str__(self):
+        return '{}'.format(self.nombre)
+
+    class Meta:
+        verbose_name_plural= 'Configuraciones'
+
+class ConfiguracionEmpresa(models.Model):
+    id = models.BigAutoField(primary_key=True,verbose_name='ID')
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE,help_text="Modelo Empresa",blank=True,null = True)
+    configuracion = models.ForeignKey(Configuracion, on_delete=models.CASCADE,help_text="Modelo Configuracion",blank=True,null = True)
+    valor = models.CharField(max_length=191,blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural= 'ConfiguracionEmpresas'

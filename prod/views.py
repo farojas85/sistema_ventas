@@ -5,16 +5,17 @@ from django.urls import reverse_lazy
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.forms.models import model_to_dict
-from django.db.models import Q
+from django.db.models import Q,Count,FilteredRelation
 from emp.models import Empresa
 from .models import Marca,TipoProducto,Producto,Categoria
-from .forms import MarcaForm,CategoriaForm,ProductoForm
+from .models import ProductoPrecio,ProductoPreparado
+from .forms import MarcaForm,CategoriaForm,ProductoForm,ProductoPreparadoForm
 
-class MarcaView(LoginRequiredMixin,generic.ListView):
+class MarcaView(generic.ListView):
     model = Marca
     context_object_name = 'marcas'
     template_name = 'prod/marca/inicio.html'
-    login_url= 'bases:login'
+    #login_url= 'bases:login'
 
 
 def marca_create(request):
@@ -194,3 +195,31 @@ class ProductoUpdate(LoginRequiredMixin,generic.UpdateView):
     template_name = 'prod/producto/form.html'
     success_url = reverse_lazy('prod:producto-inicio')
     logi_url='bases:login'
+
+class ProductoPreparadoView(LoginRequiredMixin,generic.ListView):
+    model = Categoria
+    context_object_name = 'producto_preparados'
+    template_name='prod/producto_preparado/inicio.html'
+    login_url= 'bases:login'
+
+class ProductoPreparadoNew(LoginRequiredMixin,generic.CreateView):
+    model = ProductoPreparado
+    form_class= ProductoPreparadoForm
+    template_name = 'prod/producto_preparado/nuevo.html'
+    success_url = reverse_lazy('prod:producto-preparado-inicio')
+    login_url = 'bases:login'
+
+class ProductosNoLista(generic.View):
+    def get(self, request):
+        #productos = list(Producto.objects.all().annotate(paid_producto_preparados))
+        productos = list(Producto.objects.values('id','nombre').annotate(count_views=Count('productopreparado__pk')).filter(count_views__gte=0))
+        data = dict()
+        data['productos'] = productos
+        return JsonResponse(data)
+
+class ProductoPrimos(generic.View):
+    def get(self,request):
+        productos =list(Producto.objects.filter(tipo_producto_id = 1).values('id','nombre'))
+        data = dict()
+        data['productos'] = productos
+        return JsonResponse(data)
