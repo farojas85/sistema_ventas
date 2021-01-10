@@ -7,7 +7,7 @@ class ConfiguracionesDatos:
     def cargar_datos(cls,apps,schema_editor):
         db_alias = schema_editor.connection.alias
         
-        Configuracion = apps.get_model('emp','Configuracion')
+        #Configuracion = apps.get_model('emp','Configuracion')
         
         # Configuracion1 = Configuracion.objects.get_or_create(
         #     nombre = 

@@ -154,7 +154,7 @@ class TipoPuntoVenta(ClaseModelo):
 
 class PuntoVenta(ClaseModelo):
     tipo_punto_venta = models.ForeignKey(TipoPuntoVenta, on_delete=models.CASCADE,blank=True,null=True)
-    almacen = models.ForeignKey(Almacen, on_delete=models.CASCADE,blank=True,null=True)
+    sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE,blank=True,null=True)
     nombre_equipo = models.CharField(max_length=191)
  
     def __str__(self):
@@ -180,6 +180,8 @@ class ConfiguracionEmpresa(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE,help_text="Modelo Empresa",blank=True,null = True)
     configuracion = models.ForeignKey(Configuracion, on_delete=models.CASCADE,help_text="Modelo Configuracion",blank=True,null = True)
     valor = models.CharField(max_length=191,blank=True, null=True)
+    fecha_creacion = models.DateTimeField(blank=True,null=True,auto_now_add=True)
+    fecha_modificacion = models.DateTimeField(blank=True,null=True,auto_now=True)
 
     class Meta:
         verbose_name_plural= 'ConfiguracionEmpresas'

@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password
 class DatosMigracion:
     @classmethod
     def cargar_datos(cls,apps, schema_editor):
-        db_alias =schema_editor.connection.alias
+        db_alias = schema_editor.connection.alias
 
         Acceso = apps.get_model('cuenta','Acceso')
 
