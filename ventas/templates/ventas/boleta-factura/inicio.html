@@ -19,8 +19,25 @@
 {% endblock content_header %}
 
 {% block contenido %}
-
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    Nueva Venta Boleta / Factura
+                    <a class="btn bg-maroon btn-sm btn-rounded"
+                        href="">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                </h3>
+            </div>
+            <div class="card-body">
+                {{ form.as_p }}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock contenido %}
 {% block scripts %}
-<script src="/static/base/js/inventario/marca.js"></script>
+
 {% endblock scripts %}

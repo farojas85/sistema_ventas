@@ -2,18 +2,15 @@
 
 from django.db import models,migrations
 
-class ConfiguracionesDatos:
+class VentasDatos:
     @classmethod
     def cargar_datos(cls,apps,schema_editor):
         db_alias = schema_editor.connection.alias
         
-        #Configuracion = apps.get_model('emp','Configuracion')
+        TipoComprobante = apps.get_model('ventas','TipoComprobante')
         
-        # Configuracion1 = Configuracion.objects.get_or_create(
-        #     nombre = 
-        # )
-        # cls.empresa_object, created = Empresa.objects.get_or_create(ruc='10000000001',razon_social="Mi Empresa",direccion_principal='Direccion')
-        # print(f'\nEmpresa Creada con ID: '+str(cls.empresa_object.id))
+        # cls.tipo_comprobante1, created = TipoComprobante.objects.get_or_create(codigo='01',nombre='')
+        # print(f'\nTipo Punto de Venta creado: '+str(cls.tipo_tactil.nombre))
 
         # TipoPuntoVenta = apps.get_model('emp','TipoPuntoVenta')
 
@@ -34,7 +31,7 @@ class ConfiguracionesDatos:
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('emp', '0004_auto_20201220_1643'),
+        ('ventas', '0001_initial'),
     ]
 
     operations = [

@@ -191,6 +191,47 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class="nav-item {% if '/boleta-factura/' in request.path or '/categoria/' in request.path or '/tipoproducto/' in request.path or '/producto/' in request.path or '/producto-preparado/' in request.path %}menu-open{% endif %}">
+                                <a href="#" class="nav-link {% if '/boleta-factura/' in request.path or '/categoria/' in request.path or '/tipoproducto/' in request.path or '/producto/' in request.path or '/producto-preparado/' in request.path %}active{% endif %}">
+                                    <i class="nav-icon fas fa-dolly-flatbed text-info"></i>
+                                    <p>
+                                        Ventas
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{% url 'ventas:boleta-factura-inicio' %}" class="nav-link {% if '/boleta-factura/' in request.path %}active{% endif %}">
+                                            <i class="fas fa-ad nav-icon text-indigo"></i>
+                                            <p>Boleta/Factura</p>
+                                        </a>
+                                    </li>
+                                    <!-- <li class="nav-item">
+                                        <a href="{% url 'prod:tipoproducto-inicio' %}" class="nav-link {% if '/tipoproducto/' in request.path %}active{% endif %}">
+                                            <i class="fab fa-typo3 nav-icon text-indigo"></i>
+                                            <p>Tipo Producto</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{% url 'prod:categoria-inicio' %}" class="nav-link {% if '/categoria/' in request.path %}active{% endif %}">
+                                            <i class="fab fa-odnoklassniki-square text-indigo nav-icon"></i>
+                                            <p>Categor&iacute;a</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{% url 'prod:producto-inicio' %}" class="nav-link {% if '/producto/' in request.path %}active{% endif %}">
+                                            <i class="fas fa-box-open nav-icon text-indigo"></i>
+                                            <p>Producto</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{% url 'prod:producto-preparado-inicio' %}" class="nav-link {% if '/producto-preparado/' in request.path %}active{% endif %}">
+                                            <i class="fas fa-box-open nav-icon text-indigo"></i>
+                                            <p>Producto Preparado</p>
+                                        </a>
+                                    </li> -->
+                                </ul>
+                            </li>
                         </ul>
                     </nav>
                     <!-- /.sidebar-menu -->

@@ -198,6 +198,11 @@ class ConfiguracionesDatos:
             observacion='0 - No Permite. 1 - Permite')
         print(f'\nConfiguracion Creada con ID: '+str(cls.configuracion40.id))
 
+        cls.configuracion41, created = Configuracion.objects.get_or_create(
+            nombre='Impuesto  a la bolsa',descripcion='',
+            observacion='0 - No Permite. 1 - Permite')
+        print(f'\nConfiguracion Creada con ID: '+str(cls.configuracion41.id))
+
 
 class Migration(migrations.Migration):
 

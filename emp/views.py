@@ -142,7 +142,7 @@ class AlmacenView(LoginRequiredMixin,generic.ListView):
     login_url= 'bases:login'
 
 class AlmacenNew(LoginRequiredMixin,generic.CreateView):
-    model = Almacen,
+    model = Almacen
     template_name = 'emp/almacen/form.html'
     form_class= AlmacenForm
     success_url = reverse_lazy('emp:almacen-inicio')
