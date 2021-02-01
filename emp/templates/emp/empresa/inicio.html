@@ -74,6 +74,13 @@
                                         <button class="btn btn-danger btn-xs">
                                             <i class="fas fa-trash"></i>
                                         </button>
+                                        <button class="btn btn-info btn-xs btn-nuevo-usuario" title="Nuevo Usuario"
+                                            data-empresaid="{{ item.id }}">
+                                            <i class="fas fa-user-plus"></i>
+                                        </button>
+                                        <button class="btn bg-orange btn-xs " title="Listado de Usuarios">
+                                            <i class="fas fa-users"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -86,6 +93,8 @@
         </div>
     </div>
 </div>
+{%  include "emp/empresa/nuevoUsuario.html" %}
+
 {% endblock %}
 
 {% block scripts %}

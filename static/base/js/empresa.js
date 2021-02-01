@@ -78,3 +78,11 @@ function listarDistritos()
         }
     });
 }
+
+
+$('.btn-nuevo-usuario').on('click',function(){
+    var empresa_id = $(this).data("empresaid");
+    $('#modal-nuevo-usuario-title').html('Nuevo Usuario')
+    //$('#modal-nuevo-usuario-body').html(emresa_id)
+    $('#modal-nuevo-usuario').modal('show')
+})

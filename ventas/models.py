@@ -17,6 +17,8 @@ class Serie(models.Model):
 	codigo = models.CharField(max_length=3,help_text="Código Forma de Pago",blank=True, null=True)
 	nombre = models.CharField(max_length=191,help_text="Nombre Forma de Pago",blank=True, null=True)
 	estado = models.BooleanField(default=True)
+	correlativo_inicial = models.IntegerField(help_text="Correlativo Inicial",default=1)
+	correlativo_actual = models.IntegerField(help_text="Correlativo Actual",blank=True, null=True)
 	fecha_creacion = models.DateTimeField(auto_now_add=True)
 	fecha_modificacion = models.DateTimeField(auto_now=True)
 
@@ -33,12 +35,6 @@ class Moneda(models.Model):
 	codigo = models.CharField(max_length=3,help_text="Código Forma de Pago",blank=True, null=True)
 	nombre = models.CharField(max_length=191,help_text="Nombre Forma de Pago",blank=True, null=True)
 	estado = models.BooleanField(default=True)
-	fecha_creacion = models.DateTimeField(auto_now_add=True)
-	fecha_modificacion = models.DateTimeField(auto_now=True)
-
-class EstadoOperacion(models.Model):
-	id = models.BigAutoField(primary_key=True,verbose_name='ID')
-	nombre = models.CharField(max_length=191,help_text="Nombre Estado Operación",blank=True, null=True)
 	fecha_creacion = models.DateTimeField(auto_now_add=True)
 	fecha_modificacion = models.DateTimeField(auto_now=True)
 
@@ -63,8 +59,8 @@ class ComprobanteVenta(models.Model):
 	fecha_vencimiento = models.DateField(help_text="Fecha Vencimiento")
 	forma_pago = models.ForeignKey(FormaPago,on_delete=models.CASCADE,blank=True, null=True)
 	moneda = models.ForeignKey(Moneda,on_delete=models.CASCADE,blank=True, null=True)
-	estado_operacion = models.ForeignKey(EstadoOperacion,on_delete=models.CASCADE,blank=True, null=True)
-	estado_xml = models.BooleanField(blank=True,null=True,help_text="Estado XML")
+	fecha_creacion = models.DateTimeField(auto_now_add=True)
+	fecha_modificacion = models.DateTimeField(auto_now=True)
 
 class ComprobanteVentaDetalle(models.Model):
 	id = models.BigAutoField(primary_key=True,verbose_name='ID')
@@ -81,3 +77,20 @@ class ComprobanteVentaDetalle(models.Model):
 	impuesto_bolsa = models.DecimalField(max_digits=18,decimal_places=2,help_text="Impuesto Bolsa",default=0.00)
 	percepciones = models.DecimalField(max_digits=18,decimal_places=2,help_text="percepciones",default=0.00)
 	retenciones = models.DecimalField(max_digits=18,decimal_places=2,help_text="Retenciones",default=0.00)
+	fecha_creacion = models.DateTimeField(auto_now_add=True)
+	fecha_modificacion = models.DateTimeField(auto_now=True)
+
+class XmlDetalle(models.Model):
+	id = models.BigAutoField(primary_key=True,verbose_name='ID')
+	fechaRegistro = models.DateTimeField(help_text="Fecha Comprobante")
+	diaRegistro = models.IntegerField(help_text="Dia Registro Comprobante")
+	fechaEnvio = models.DateTimeField(help_text="Fecha Comprobante")
+	id_comprobante= models.BigIntegerField(help_text="Id Comprobante")
+	serie =   models.CharField(max_length=4,help_text="Código Forma de Pago",blank=True, null=True)
+	numero = models.IntegerField(help_text="Dia Registro Comprobante")
+	estadoComprobante =  models.BooleanField(default=True)
+	tipo_comprobante = models.ForeignKey(TipoComprobante,on_delete=models.CASCADE,blank=True, null=True)
+	nombre_xml = models.CharField(max_length=191,help_text="Nombre Forma de Pago",blank=True, null=True)
+	estado_envio = models.CharField(max_length=1,help_text="Estado Envio",default = 0)
+	fecha_creacion = models.DateTimeField(auto_now_add=True)
+	fecha_modificacion = models.DateTimeField(auto_now=True)
